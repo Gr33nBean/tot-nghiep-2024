@@ -172,6 +172,7 @@ sketch
 # Ignore all local history of files
 .history
 .ionide
+.firebase
 
 ### yarn ###
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
