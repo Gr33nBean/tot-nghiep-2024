@@ -1,6 +1,6 @@
 import { I2024, IGraduation, IHat } from '@/constants/icons'
 import React from 'react'
-import Baloons from './decor/baloons'
+import Baloons from '../decor/baloons'
 
 const DecorLayout = ({ children }: { children: React.ReactNode }) => {
   return (

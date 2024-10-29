@@ -7,9 +7,9 @@ const Baloon = ({ className, src, duration }: { className?: string; src?: string
       animate={{ bottom: '100%' }}
       transition={{ repeat: Infinity, duration: duration || 6, ease: 'easeIn' }}
       className={`absolute ${className}`}
-      style={{
-        filter: 'drop-shadow(0 16px 12px rgba(0, 0, 0, 0.5))',
-      }}
+      // style={{
+      //   filter: 'drop-shadow(0 16px 12px rgba(0, 0, 0, 0.5))',
+      // }}
     >
       <div className="size-10"></div>
       <img className="w-full object-contain" src={src} />
