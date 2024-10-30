@@ -1,6 +1,6 @@
 const Welcome = ({ step }: { step: number }) => {
   return (
-    <div className="flex size-full flex-col items-center justify-center px-4 text-center">
+    <div data-step={step} className="flex size-full flex-col items-center justify-center px-4 text-center">
       <div className="w-full">
         <p className="w-full truncate text-center font-abril-fatface text-[9dvw] leading-[9dvw] max-md:text-[12dvw] max-md:leading-[12dvw] ">
           Graduation
