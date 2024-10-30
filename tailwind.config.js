@@ -2,6 +2,10 @@ export default {
   content: ['index.html', './src/**/*.{js,jsx,ts,tsx,html}'],
   theme: {
     extend: {
+      fontFamily: {
+        'dancing-script': ['Dancing Script', 'cursive'],
+        'abril-fatface': ['Abril Fatface', 'cursive'],
+      },
       colors: {
         primary: ({ opacityValue }) => {
           if (opacityValue !== undefined) {
