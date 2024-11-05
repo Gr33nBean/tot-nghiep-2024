@@ -27,14 +27,14 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       if (value < 0 || value > MAX_STEP - 1) {
         return
       }
-      el.dataset.prevent = 'true'
+      el.dataset.prevent = 'false'
       await wait(100)
       el.scrollTo({
         left: value * el.clientWidth,
         behavior: 'smooth',
       })
       setStep(value)
-      el.dataset.prevent = 'false'
+      el.dataset.prevent = 'true'
     },
     [step]
   )

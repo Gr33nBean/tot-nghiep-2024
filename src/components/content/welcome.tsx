@@ -1,11 +1,8 @@
 import { removeVietnameseAccent } from '@/utils/common'
 
-const Welcome = ({ step }: { step: number }) => {
+const Welcome = () => {
   return (
-    <div
-      data-step={step}
-      className="flex size-full flex-col items-center justify-center pb-8 pt-28 text-center max-sm:pb-12 max-sm:pt-32"
-    >
+    <div className="flex size-full flex-col items-center justify-center pb-8 pt-28 text-center max-sm:pb-12 max-sm:pt-32">
       <div className="w-full px-8">
         <p className="w-full truncate text-center font-abril-fatface text-[3rem] uppercase max-sm:text-[2rem]">
           Graduation
@@ -18,8 +15,8 @@ const Welcome = ({ step }: { step: number }) => {
       <div className=" relative mb-10 flex w-full flex-1 items-center">
         <div className="relative w-full bg-gradient-to-r from-white/0 via-white/40  to-white/0 py-2 ">
           <div
-            data-check={false}
-            className=" absolute -bottom-2 left-1/2 max-h-0 min-w-fit -translate-x-1/2 translate-y-full overflow-hidden transition-all duration-300 data-[check=true]:max-h-[200px] data-[check=true]:overflow-visible"
+            data-name={false}
+            className=" absolute -bottom-2 left-1/2 max-h-0 min-w-fit -translate-x-1/2 translate-y-full overflow-hidden transition-all duration-300 data-[name=true]:max-h-[200px] data-[name=true]:overflow-visible"
           >
             <p className="background-glass rounded-full px-4 py-1 text-[1.25rem] font-bold text-error-base">
               Đừng giỡn nữa! Điền dô liền!
@@ -27,12 +24,13 @@ const Welcome = ({ step }: { step: number }) => {
           </div>
           <div className="relative w-full px-40 max-sm:px-8">
             <input
+              id="name"
               type="text"
               placeholder="What should I call you?"
               onChange={(e) => {
                 e.target.value = removeVietnameseAccent(e.target.value)
               }}
-              className="w-full bg-transparent py-4 text-center font-abril-fatface text-[1.75rem] text-text outline-none placeholder:text-text/80"
+              className="w-full bg-transparent py-4 text-center font-abril-fatface text-[1.3rem] text-text outline-none placeholder:text-text/80"
             />
           </div>
         </div>
