@@ -10,3 +10,15 @@ export function removeVietnameseAccent(str: string): string {
   }
   return str
 }
+
+export async function getPermissionCamera() {
+  const res = await navigator.mediaDevices
+    .getUserMedia({ video: true })
+    .then(() => {
+      return true
+    })
+    .catch(() => {
+      return false
+    })
+  return res
+}
