@@ -1,9 +1,22 @@
-const SwipeWrapper = ({ children }: { children: React.ReactNode }) => {
+import { useData } from '@/provider/data.provider'
+import { AnimatePresence, motion } from 'framer-motion'
+
+const SwipeWrapper = ({ children, isEnter, step }: { children: React.ReactNode; isEnter: boolean; step: number }) => {
+  const { step: currentStep } = useData()
+
   return (
-    <div className="relative size-full min-w-full snap-center snap-always">
-      <div className="absolute left-1/2 top-1/2 size-6 -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="relative size-full overflow-y-auto overflow-x-hidden">{children}</div>
-    </div>
+    <AnimatePresence mode="wait">
+      {isEnter && (
+        <motion.div
+          initial={{ x: step < currentStep ? '-100%' : '100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: step < currentStep ? '100%' : '-100%' }}
+          className="relative size-full overflow-y-auto overflow-x-hidden"
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 

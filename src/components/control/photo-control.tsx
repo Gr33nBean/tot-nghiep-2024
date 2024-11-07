@@ -1,13 +1,24 @@
 import { IGalleryWide, ICameraRotate } from '@/constants/icons'
 import Button1 from '../button/button-1'
-import { useState } from 'react'
 import EditButton from './edit-button'
+import { useData } from '@/provider/data.provider'
 
 const PhotoControl = () => {
-  const [again, setAgain] = useState(false)
+  const { isPhoto } = useData()
+
   return (
-    <div data-again={again} className="group flex items-center justify-between gap-4 px-10">
-      <button className="scale-150 transition-all duration-300 active:scale-75">
+    <div data-again={isPhoto} className="group flex items-center justify-between gap-4 px-10">
+      <button
+        className="scale-150 transition-all duration-300 active:scale-75"
+        onClick={() => {
+          if (isPhoto) {
+            const reTake = document.getElementById('retake-photo') as HTMLButtonElement
+            if (reTake) reTake.click()
+          } else {
+            // input
+          }
+        }}
+      >
         <span className="block group-data-[again=true]:hidden">
           <IGalleryWide />
         </span>
@@ -16,7 +27,7 @@ const PhotoControl = () => {
         </span>
       </button>
       <Button1
-        play={again}
+        play={isPhoto}
         children1={
           <>
             <path
@@ -34,10 +45,15 @@ const PhotoControl = () => {
           />
         }
         onClick={(_) => {
-          setAgain(!again)
+          if (!isPhoto) {
+            const take = document.getElementById('take-photo') as HTMLButtonElement
+            if (take) take.click()
+          } else {
+            alert('Comming soon!')
+          }
         }}
       />
-      <EditButton />
+      <EditButton isDisable={!isPhoto} />
     </div>
   )
 }
