@@ -11,7 +11,7 @@ const SwipeWrapper = ({ children, isEnter, step }: { children: React.ReactNode; 
           initial={{ x: step < currentStep ? '-100%' : '100%' }}
           animate={{ x: 0 }}
           exit={{ x: step < currentStep ? '100%' : '-100%' }}
-          className="relative size-full overflow-y-auto overflow-x-hidden"
+          className="absolute inset-0 overflow-y-auto overflow-x-hidden "
         >
           {children}
         </motion.div>

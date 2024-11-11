@@ -6,15 +6,15 @@ import { useEffect, useRef, useState } from 'react'
 import { Camera } from 'react-camera-pro'
 import { createPortal } from 'react-dom'
 
-const Photo = () => {
-  const { step } = useData()
-  const [isAcceptCamera, setIsAcceptCamera] = useState<boolean | undefined>(undefined)
+const Photo = ({ isOpen, isReview }: { isReview?: boolean; isOpen: boolean }) => {
+  const [isAcceptCamera, setIsAcceptCamera] = useState<boolean | undefined>(isReview)
   const [isOpenPrompt, setIsOpenPrompt] = useState(false)
+  const { name, setName } = useData()
 
   return (
     <div className="flex size-full flex-col items-center justify-center gap-4">
-      {step == 1 && isAcceptCamera && <TakePhoto />}
-      {step == 1 && (
+      {isOpen && isAcceptCamera && <TakePhoto />}
+      {isOpen && !isReview && (
         <Prompt
           isAcceptCamera={isAcceptCamera}
           setIsAcceptCamera={setIsAcceptCamera}
@@ -22,6 +22,24 @@ const Photo = () => {
           setIsOpenPrompt={setIsOpenPrompt}
         />
       )}
+
+      <div data-review={isReview ?? false} className="absolute inset-0 z-20 data-[review=false]:hidden">
+        <p className="absolute left-0 right-0 top-0 bg-gradient-to-r from-white/0 via-white/60  to-white/0  p-4 text-center font-playball text-xl text-text">
+          Bạn muốn thay đổi gì hông?
+        </p>
+
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-white/0 via-white/60 to-white/0 px-40 max-sm:px-4">
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoComplete="off"
+            placeholder="What should I call you?"
+            className="w-full bg-transparent py-4 text-center font-playball text-[1.3rem] text-text outline-none placeholder:text-text/70"
+          />
+        </div>
+      </div>
       <div className="hidden w-[60%] translate-x-3.5 drop-shadow-2xl [--heart-color:theme(colors.error.base)]">
         <IUserHeart />
       </div>
@@ -32,30 +50,30 @@ const Photo = () => {
 export default Photo
 
 function TakePhoto() {
-  const { filter, setIsPhoto } = useData()
+  const { filter, setIsPhoto, isPhoto } = useData()
   const camera = useRef(null)
-  const [image, setImage] = useState(undefined)
 
   return (
     <>
-      <Camera ref={camera} errorMessages={{}} />
-      {image && (
-        <img
-          src={image}
-          alt=""
-          className="h-auto w-full -scale-x-100 object-cover"
-          style={{
-            filter: `brightness(${filter.brightness}%) contrast(${filter.contrast}%) saturate(${filter.saturation}%)`,
-          }}
-        />
-      )}
+      <div data-photo={!!isPhoto} className="size-full data-[photo=true]:hidden">
+        <Camera facingMode="user" ref={camera} errorMessages={{}} />
+      </div>
+
+      <img
+        data-photo={!!isPhoto}
+        src={isPhoto}
+        alt=""
+        className="w-full bg-white object-cover data-[photo=false]:hidden"
+        style={{
+          filter: `brightness(${filter.brightness}%) contrast(${filter.contrast}%) saturate(${filter.saturation}%)`,
+        }}
+      />
 
       <button
         id="take-photo"
         className="pointer-events-none absolute bottom-10 left-1/2 z-30 hidden -translate-x-1/2"
         onClick={() => {
-          setImage((camera.current as any)?.takePhoto())
-          setIsPhoto(true)
+          setIsPhoto((camera.current as any)?.takePhoto())
         }}
       >
         Take photo
@@ -65,8 +83,7 @@ function TakePhoto() {
         id="retake-photo"
         className="pointer-events-none absolute bottom-10 left-1/2 z-30 hidden -translate-x-1/2"
         onClick={() => {
-          setImage(undefined)
-          setIsPhoto(false)
+          setIsPhoto(undefined)
         }}
       >
         Take photo

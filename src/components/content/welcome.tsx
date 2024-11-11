@@ -1,5 +1,3 @@
-import { removeVietnameseAccent } from '@/utils/common'
-
 const Welcome = () => {
   return (
     <div className="flex size-full flex-col items-center justify-center pb-8 pt-28 text-center max-sm:pb-12 max-sm:pt-32">
@@ -7,36 +5,31 @@ const Welcome = () => {
         <p className="w-full truncate text-center font-abril-fatface text-[3rem] uppercase max-sm:text-[2rem]">
           Graduation
         </p>
-        <p className="mt-1 w-full -translate-y-2 truncate text-center text-[1.85rem] max-sm:text-[1.5rem] ">
+        <p className="mt-1 w-full -translate-y-2 truncate text-center text-[1.7rem] max-sm:text-[1.35rem] ">
           Class of 2024
         </p>
       </div>
 
       <div className=" relative mb-10 flex w-full flex-1 items-center">
-        <div className="relative w-full bg-gradient-to-r from-white/0 via-white/40  to-white/0 py-2 ">
-          <div
-            data-name={false}
-            className=" absolute -bottom-2 left-1/2 max-h-0 min-w-fit -translate-x-1/2 translate-y-full overflow-hidden transition-all duration-300 data-[name=true]:max-h-[200px] data-[name=true]:overflow-visible"
-          >
-            <p className="background-glass rounded-full px-4 py-1 text-[1.25rem] font-bold text-error-base">
-              Đừng giỡn nữa! Điền dô liền!
-            </p>
-          </div>
-          <div className="relative w-full px-40 max-sm:px-8">
+        <div className="relative w-full  py-2 ">
+          <div className="absolute -inset-1 bg-gradient-to-r from-white/20 via-white/80 to-white/20 blur-xl"></div>
+
+          <div className="px-30 relative w-full max-sm:px-4">
             <input
               id="name"
               type="text"
-              placeholder="What should I call you?"
-              onChange={(e) => {
-                e.target.value = removeVietnameseAccent(e.target.value)
-              }}
-              className="w-full bg-transparent py-4 text-center font-abril-fatface text-[1.3rem] text-text outline-none placeholder:text-text/80"
+              autoComplete="off"
+              placeholder="Xin hỏi cao danh quý tánh?"
+              className="w-full bg-transparent py-4 text-center font-playball text-[1.3rem] text-text outline-none placeholder:text-text/70"
             />
           </div>
         </div>
       </div>
 
-      <p className="rounded-full bg-primary px-6 py-1 font-abril-fatface text-[1.5rem]">You are invited</p>
+      <p className="relative rounded-full px-6 py-1 font-abril-fatface text-[1.5rem] text-text">
+        <span className="absolute -inset-1 rounded-full  bg-gradient-to-r from-white/0 via-primary/100 to-white/0 blur-xl"></span>
+        <span className="relative">You are invited</span>
+      </p>
     </div>
   )
 }

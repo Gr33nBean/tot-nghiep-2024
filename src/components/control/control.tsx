@@ -1,9 +1,9 @@
 import { useData } from '@/provider/data.provider'
 import WelcomeControl from './welcome-control'
-import RevieweControl from './reviewe-control'
 import PhotoControl from './photo-control'
-
-const className = 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 scale-0'
+import GameControl from './game-control'
+import { AnimatePresence, motion } from 'framer-motion'
+import { MAX_STEP } from '../content/content-wrapper'
 
 const Control = () => {
   const { step } = useData()
@@ -11,22 +11,46 @@ const Control = () => {
   return (
     <div
       data-step={step}
-      className="border-top-animate background-glass group relative flex w-full items-center justify-center overflow-hidden rounded-b-3xl py-10"
+      className={` ${
+        step == MAX_STEP - 1 ? '' : 'border-top-animate'
+      } background-glass group relative flex w-full items-center justify-center overflow-hidden rounded-b-3xl py-10`}
     >
       <div className="pointer-events-none h-[60px]"></div>
-      <div className={`${className} p-4 group-data-[step=0]:scale-100`}>
+      <ZoomWrapper isEnter={step == 0}>
         <WelcomeControl />
-      </div>
+      </ZoomWrapper>
 
-      <div className={`w-full group-data-[step=1]:scale-100 ${className}`}>
+      <ZoomWrapper isEnter={step == 1}>
         <PhotoControl />
-      </div>
+      </ZoomWrapper>
 
-      <div className={` group-data-[step=2]:scale-100 ${className}`}>
-        <RevieweControl />
-      </div>
+      <ZoomWrapper isEnter={step == 2}>
+        <GameControl />
+      </ZoomWrapper>
+
+      <ZoomWrapper isEnter={step == 3}>
+        <PhotoControl />
+        {/* <RevieweControl /> */}
+      </ZoomWrapper>
     </div>
   )
 }
 
 export default Control
+
+function ZoomWrapper({ isEnter, children }: { isEnter: boolean; children: React.ReactNode }) {
+  return (
+    <AnimatePresence mode="wait">
+      {isEnter && (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: 0 }}
+          className="absolute inset-0 flex origin-center items-center justify-center"
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
