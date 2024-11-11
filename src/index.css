@@ -4,9 +4,9 @@
 
 .huy {
   --primary: 203, 149, 29;
-  --primary-darker: 8, 95, 59;
+  /* --primary-darker: 8, 95, 59; */
   --secondary: 32, 32, 32;
-  --background: 236, 238, 240;
+  /* --background: 236, 238, 240; */
   --text: 32, 32, 32;
   --gray: 202, 205, 208;
 }
@@ -43,7 +43,7 @@ body {
 }
 
 #root {
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Playball', cursive;
   width: 100%;
   margin: auto;
   height: 100dvh;

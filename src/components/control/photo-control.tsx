@@ -4,18 +4,32 @@ import EditButton from './edit-button'
 import { useData } from '@/provider/data.provider'
 
 const PhotoControl = () => {
-  const { isPhoto } = useData()
+  const { isPhoto, setIsPhoto, handleStepChange, name } = useData()
 
   return (
-    <div data-again={isPhoto} className="group flex items-center justify-between gap-4 px-10">
+    <div data-again={!!isPhoto} className="group flex w-full items-center justify-between gap-4 px-10">
       <button
         className="scale-150 transition-all duration-300 active:scale-75"
         onClick={() => {
+          const image = document.querySelector('img[data-photo]') as HTMLImageElement
+          if (image) {
+            image.classList.remove('-scale-x-100')
+          }
           if (isPhoto) {
             const reTake = document.getElementById('retake-photo') as HTMLButtonElement
             if (reTake) reTake.click()
           } else {
-            // input
+            const input = document.createElement('input')
+            input.type = 'file'
+            input.accept = 'image/*'
+            input.click()
+            input.onchange = (e) => {
+              const target = e.target as HTMLInputElement
+              const file = target.files?.[0]
+              if (file) {
+                setIsPhoto(URL.createObjectURL(file))
+              }
+            }
           }
         }}
       >
@@ -27,7 +41,7 @@ const PhotoControl = () => {
         </span>
       </button>
       <Button1
-        play={isPhoto}
+        play={!!isPhoto}
         children1={
           <>
             <path
@@ -47,9 +61,17 @@ const PhotoControl = () => {
         onClick={(_) => {
           if (!isPhoto) {
             const take = document.getElementById('take-photo') as HTMLButtonElement
+            const image = document.querySelector('img[data-photo]') as HTMLImageElement
+            if (image) {
+              image.classList.add('-scale-x-100')
+            }
             if (take) take.click()
           } else {
-            alert('Comming soon!')
+            if (name) {
+              handleStepChange(true)
+            } else {
+              alert('Điền tên giúp dùm cái đi!')
+            }
           }
         }}
       />

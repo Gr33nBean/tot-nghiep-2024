@@ -2,10 +2,13 @@ import { useData } from '@/provider/data.provider'
 import Photo from './photo'
 import SwipeWrapper from './swipe-wrapper'
 import Welcome from './welcome'
+import Game from './game'
+import Invitations from './invitations'
 
-export const MAX_STEP = 3
+export const MAX_STEP = 5
 const ContentWrapper = () => {
   const { step } = useData()
+
   return (
     <div
       data-step={step}
@@ -17,7 +20,19 @@ const ContentWrapper = () => {
         </SwipeWrapper>
 
         <SwipeWrapper isEnter={step == 1} step={1}>
-          <Photo />
+          <Photo isOpen={step == 1} />
+        </SwipeWrapper>
+
+        <SwipeWrapper isEnter={step == 2} step={2}>
+          <Game />
+        </SwipeWrapper>
+
+        <SwipeWrapper isEnter={step == 3} step={3}>
+          <Photo isOpen={step == 3} isReview />
+        </SwipeWrapper>
+
+        <SwipeWrapper isEnter={step == 4} step={4}>
+          <Invitations />
         </SwipeWrapper>
       </div>
     </div>

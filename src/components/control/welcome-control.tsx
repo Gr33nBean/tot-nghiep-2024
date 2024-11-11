@@ -4,14 +4,12 @@ import { wait } from '@/utils/common'
 import Button from '../button/button'
 
 const WelcomeControl = () => {
-  const { handleStepChange } = useData()
+  const { handleStepChange, setName } = useData()
 
   function validate() {
     const inputEl = document.getElementById('name') as HTMLInputElement
     if (!inputEl) return false
     const name = inputEl.value
-    const warn = document.querySelector('[data-name]') as HTMLDivElement
-    if (warn) warn.dataset.name = name ? 'false' : 'true'
     if (!name) return false
     return true
   }
@@ -21,8 +19,11 @@ const WelcomeControl = () => {
       onClick={async (e) => {
         e.currentTarget.dataset.load = e.currentTarget.dataset.load === 'true' ? 'false' : 'true'
         if (validate()) {
+          setName((document.getElementById('name') as HTMLInputElement)?.value)
           await wait(700)
           handleStepChange(true)
+        } else {
+          alert('Điền tên giúp dùm cái đi!')
         }
         setTimeout(() => {
           document.getElementById('come-in')?.setAttribute('data-load', 'false')
