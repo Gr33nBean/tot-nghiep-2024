@@ -12,7 +12,9 @@ const ContentWrapper = () => {
   return (
     <div
       data-step={step}
-      className="background-glass flex  flex-1 items-center justify-center overflow-hidden rounded-t-3xl transition-all duration-500 data-[step=0]:rounded-t-full"
+      className={` ${
+        step < MAX_STEP - 1 ? 'background-glass' : ''
+      } flex  flex-1 items-center justify-center overflow-hidden rounded-t-3xl transition-all duration-500 data-[step=0]:rounded-t-full`}
     >
       <div data-prevent="true" className="flex size-full">
         <SwipeWrapper isEnter={step == 0} step={0}>

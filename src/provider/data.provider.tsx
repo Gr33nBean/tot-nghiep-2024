@@ -1,4 +1,5 @@
 import { MAX_STEP } from '@/components/content/content-wrapper'
+import { getPhoto } from '@/utils/local-storage'
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react'
 
 interface DataContextType {
@@ -17,7 +18,8 @@ interface DataContextType {
 const DataContext = createContext<DataContextType | undefined>(undefined)
 
 export const DataProvider = ({ children }: { children: ReactNode }) => {
-  const [step, setStep] = useState<number>(0)
+  const photo = getPhoto()
+  const [step, setStep] = useState<number>(photo ? MAX_STEP - 1 : 0)
 
   const handleStepChange = useCallback(
     async (isNext: boolean) => {
@@ -32,11 +34,11 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   const [filter, setFilter] = useState({ brightness: 100, contrast: 100, saturation: 100 })
 
-  const [isPhoto, setIsPhoto] = useState<string | undefined>(undefined)
+  const [isPhoto, setIsPhoto] = useState<string | undefined>(photo?.link ?? undefined)
 
   const [gameStep, setGameStep] = useState<number>(0)
 
-  const [name, setName] = useState<string | undefined>('huy')
+  const [name, setName] = useState<string | undefined>(photo?.name ?? undefined)
 
   return (
     <DataContext.Provider

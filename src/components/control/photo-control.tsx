@@ -2,9 +2,10 @@ import { IGalleryWide, ICameraRotate } from '@/constants/icons'
 import Button1 from '../button/button-1'
 import EditButton from './edit-button'
 import { useData } from '@/provider/data.provider'
+import { getTheme, setPhoto } from '@/utils/local-storage'
 
 const PhotoControl = () => {
-  const { isPhoto, setIsPhoto, handleStepChange, name } = useData()
+  const { isPhoto, setIsPhoto, handleStepChange, step, name } = useData()
 
   return (
     <div data-again={!!isPhoto} className="group flex w-full items-center justify-between gap-4 px-10">
@@ -26,8 +27,14 @@ const PhotoControl = () => {
             input.onchange = (e) => {
               const target = e.target as HTMLInputElement
               const file = target.files?.[0]
-              if (file) {
-                setIsPhoto(URL.createObjectURL(file))
+              if (!file) {
+                return
+              }
+              const reader = new FileReader()
+              reader.readAsDataURL(file)
+              reader.onload = () => {
+                const base64 = reader.result as string
+                setIsPhoto(base64)
               }
             }
           }
@@ -58,7 +65,7 @@ const PhotoControl = () => {
             fill="currentColor"
           />
         }
-        onClick={(_) => {
+        onClick={async (_) => {
           if (!isPhoto) {
             const take = document.getElementById('take-photo') as HTMLButtonElement
             const image = document.querySelector('img[data-photo]') as HTMLImageElement
@@ -68,7 +75,31 @@ const PhotoControl = () => {
             if (take) take.click()
           } else {
             if (name) {
-              handleStepChange(true)
+              if (step == 3) {
+                const postData = {
+                  name: name,
+                  type: isPhoto.split(';')[0].split(':')[1],
+                  data: isPhoto.split(',')[1],
+                  user: getTheme(),
+                }
+                try {
+                  const response = await fetch(
+                    'https://script.google.com/macros/s/AKfycbxJHc2wcSN_X8Mu7UTLxc4b7ApQ5L17QgFZgA_NuToPXs3OmlCb1RyaCJOe4ZeP8egGGw/exec',
+                    {
+                      method: 'POST',
+                      body: JSON.stringify(postData),
+                    }
+                  )
+                  const data = await response.json()
+                  setPhoto(data)
+                  handleStepChange(true)
+                } catch (error) {
+                  alert('Vui lòng thử lại')
+                  setIsPhoto(undefined)
+                }
+              } else {
+                handleStepChange(true)
+              }
             } else {
               alert('Điền tên giúp dùm cái đi!')
             }
