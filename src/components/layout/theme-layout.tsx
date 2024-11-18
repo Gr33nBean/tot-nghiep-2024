@@ -1,4 +1,4 @@
-import { setTheme, Themes, TTheme } from '@/utils/local-storage'
+import { getTheme, setTheme, Themes, TTheme } from '@/utils/local-storage'
 import React from 'react'
 
 const ThemeLayout = ({ children }: { children: React.ReactNode }) => {
@@ -11,6 +11,10 @@ const ThemeLayout = ({ children }: { children: React.ReactNode }) => {
       return <>{children}</>
     }
   } else {
+    const theme = getTheme()
+    if (theme && Themes.includes(theme)) {
+      window.location.href = `/${theme}`
+    }
     document.body.className = '!bg-white'
   }
   return (
