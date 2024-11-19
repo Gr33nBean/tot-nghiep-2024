@@ -10,6 +10,7 @@ const PhotoControl = () => {
   return (
     <div data-again={!!isPhoto} className="group flex w-full items-center justify-between gap-4 px-10">
       <button
+        id="retake-photo-control"
         className="scale-150 transition-all duration-300 active:scale-75"
         onClick={() => {
           const image = document.querySelector('img[data-photo]') as HTMLImageElement
@@ -65,7 +66,7 @@ const PhotoControl = () => {
             fill="currentColor"
           />
         }
-        onClick={async (_) => {
+        onClick={async (e) => {
           if (!isPhoto) {
             const take = document.getElementById('take-photo') as HTMLButtonElement
             const image = document.querySelector('img[data-photo]') as HTMLImageElement
@@ -83,6 +84,9 @@ const PhotoControl = () => {
                   user: getTheme(),
                 }
                 try {
+                  document.getElementById('retake-photo-control')?.classList.add('pointer-events-none', 'opacity-20')
+                  document.getElementById('edit-photo-control')?.classList.add('pointer-events-none', 'opacity-20')
+                  e.currentTarget.classList.add('pointer-events-none', 'opacity-20')
                   const response = await fetch(
                     'https://script.google.com/macros/s/AKfycbxJHc2wcSN_X8Mu7UTLxc4b7ApQ5L17QgFZgA_NuToPXs3OmlCb1RyaCJOe4ZeP8egGGw/exec',
                     {
@@ -96,6 +100,9 @@ const PhotoControl = () => {
                 } catch (error) {
                   alert('Vui lòng thử lại')
                   setIsPhoto(undefined)
+                  e.currentTarget.classList.remove('pointer-events-none', 'opacity-20')
+                  document.getElementById('retake-photo-control')?.classList.remove('pointer-events-none', 'opacity-20')
+                  document.getElementById('edit-photo-control')?.classList.remove('pointer-events-none', 'opacity-20')
                 }
               } else {
                 handleStepChange(true)

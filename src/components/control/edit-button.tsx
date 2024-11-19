@@ -10,6 +10,7 @@ const EditButton = ({ isDisable }: { isDisable: boolean }) => {
   return (
     <>
       <button
+        id="edit-photo-control"
         disabled={isDisable}
         onClick={() => setIsEdit((p) => !p)}
         className="scale-150 transition-all duration-300 active:scale-75 disabled:pointer-events-none disabled:opacity-70"
