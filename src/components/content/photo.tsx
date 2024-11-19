@@ -52,11 +52,28 @@ export default Photo
 function TakePhoto() {
   const { filter, setIsPhoto, isPhoto } = useData()
   const camera = useRef(null)
-
+  useEffect(() => {
+    const el = document.getElementById('face-center')
+    if (el) {
+      const parent = el.parentElement
+      if (parent) {
+        if (parent.offsetHeight > parent.offsetWidth) {
+          el.classList.add('w-full')
+        } else {
+          el.classList.add('h-full')
+        }
+      }
+    }
+  }, [])
   return (
     <>
       <div data-photo={!!isPhoto} className="size-full data-[photo=true]:hidden">
         <Camera facingMode="user" ref={camera} errorMessages={{}} />
+        <div className="absolute inset-0 z-[10] flex items-center justify-center">
+          <div id="face-center" className="aspect-square p-4 opacity-50">
+            <div className="size-full animate-pulse rounded-full border border-gray"></div>
+          </div>
+        </div>
       </div>
 
       <img
