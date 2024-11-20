@@ -64,7 +64,7 @@ const Game = () => {
 
   return (
     <div className="relative flex size-full flex-col items-center  overflow-y-auto py-10">
-      <p className="mb-10 w-full bg-gradient-to-r from-white/0 via-white/100  to-white/0  py-4 text-center font-playball text-2xl text-text">
+      <p className="mb-10 w-full bg-gradient-to-r from-white/0 via-white/100  to-white/0  py-4 text-center text-2xl font-medium text-text">
         Ai là Vua Tiếng Việt?
       </p>
       <div
@@ -154,7 +154,7 @@ function Item({
       data-space={children == '-'}
       data-empty={children == undefined}
       data-active={true}
-      className={`flex aspect-square w-[10%] min-w-[42px] cursor-pointer items-center justify-center rounded-lg border-2 border-text bg-white font-abril-fatface data-[active=false]:pointer-events-none data-[active=false]:cursor-default data-[space=true]:border-none data-[empty=true]:bg-transparent data-[space=true]:!bg-transparent data-[active=false]:opacity-50 ${className}`}
+      className={`flex aspect-square w-[10%] min-w-[42px] cursor-pointer items-center justify-center rounded-lg border-2 border-text bg-white font-chonburi data-[active=false]:pointer-events-none data-[active=false]:cursor-default data-[space=true]:border-none data-[empty=true]:bg-transparent data-[space=true]:!bg-transparent data-[active=false]:opacity-50 ${className}`}
       onClick={onClick}
     >
       <span className="block text-[150%] leading-[0px] max-sm:text-[130%]">{children}</span>

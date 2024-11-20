@@ -40,7 +40,7 @@ function EditModal({ handleClose }: { handleClose: () => void }) {
       className="absolute -inset-y-12 inset-x-0 bg-white"
     >
       <div data-active={active} className=" group flex size-full flex-col items-center justify-center gap-3 px-4 ">
-        <p className="font-abril-fatface text-sm">{['Brightness', 'Contrast', 'Saturation'][active]}</p>
+        <p className="font-chonburi text-sm">{['Brightness', 'Contrast', 'Saturation'][active]}</p>
         {new Array(3).fill(0).map((_, index) => {
           return (
             <div data-active={index === active} key={index} className=" hidden w-full data-[active=true]:!block">

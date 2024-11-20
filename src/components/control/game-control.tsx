@@ -37,7 +37,7 @@ function Progress({ number, active }: { number: number; active?: boolean }) {
           ></motion.div>
         )}
       </div>
-      <div className="relative flex aspect-square h-full items-center justify-center overflow-hidden rounded-full border border-gray bg-white font-abril-fatface text-sm text-white group-data-[active=true]:border-primary">
+      <div className="relative flex aspect-square h-full items-center justify-center overflow-hidden rounded-full border border-gray bg-white font-chonburi text-sm text-white group-data-[active=true]:border-primary">
         {active && (
           <motion.div
             initial={{ scale: 0 }}

@@ -41,8 +41,8 @@ const WelcomeControl = () => {
           <IVinylRecord />
         </span>
       </span>
-      <span className="max-w-[120px] overflow-hidden whitespace-nowrap text-nowrap transition-all duration-300 group-data-[load=true]:max-w-0">
-        Come In
+      <span className="max-w-[120px] overflow-hidden whitespace-nowrap text-nowrap tracking-[-0.03em] transition-all duration-300 group-data-[load=true]:max-w-0">
+        Đi thoai!
       </span>
     </Button>
   )

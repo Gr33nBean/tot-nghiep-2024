@@ -1,7 +1,6 @@
-import { I2024Vertical, IDownload, IGGMap, IInvitationTitle, IReload } from '@/constants/icons'
-import { IPositionShort } from '@/constants/icons/text'
+import { I2024Vertical, IGGMap, IPhone, IReload, IWarning } from '@/constants/icons'
 import { useData } from '@/provider/data.provider'
-import { resetLocalStorage } from '@/utils/local-storage'
+import { Names, resetLocalStorage, Tels, TTheme } from '@/utils/local-storage'
 import { motion } from 'framer-motion'
 import Lottie from 'lottie-react'
 import { useEffect, useRef, useState } from 'react'
@@ -9,8 +8,10 @@ import { createPortal } from 'react-dom'
 import swipeUp from '../../../public/swipe-up.json'
 
 const Invitations = () => {
-  const { isPhoto, name } = useData()
-  const owner = window.location.pathname.split('/')[1]
+  const { isPhoto, name, filter } = useData()
+  const owner = Names[window.location.pathname.split('/')[1] as TTheme]
+
+  const tel = Tels[window.location.pathname.split('/')[1] as TTheme]
   const container = useRef<HTMLDivElement>(null)
   const [showGuide, setShowGuide] = useState(false)
   useEffect(() => {
@@ -22,7 +23,7 @@ const Invitations = () => {
   }, [container])
 
   return createPortal(
-    <div className="fixed inset-0 flex items-center justify-center p-ios-pb">
+    <div id={'invitations'} className="fixed inset-0 flex items-center justify-center p-ios-pb">
       <div className=" background-glass flex h-full max-h-full w-full max-w-[calc(475px-2rem)] flex-col overflow-hidden rounded-3xl">
         <div
           ref={container}
@@ -33,8 +34,9 @@ const Invitations = () => {
           }}
           className="relative flex w-full flex-1 flex-col gap-4 overflow-auto p-4"
         >
-          <div className="background-glass w-full rounded-xl p-2 px-4">
-            <IInvitationTitle />
+          <div className="background-glass flex w-full flex-col items-center justify-center rounded-xl px-4 py-3">
+            <p className="font-chonburi text-lg uppercase tracking-tight">Thư mời tốt nghiệp</p>
+            <p className="text-base font-medium italic">Mời bạn đến chung vui</p>
           </div>
 
           <div className="flex w-full items-stretch gap-4">
@@ -45,8 +47,10 @@ const Invitations = () => {
                 </div>
               </div>
             </div>
-            <div className="background-glass invitation-text w-fit max-w-[40%] rounded-xl p-2.5 max-sm:max-w-[50%] ">
-              Thời gian thắm thoát thoi đưa! Em {owner} thân quý mời anh/chị{' '}
+            <div className="background-glass invitation-text w-fit max-w-[40%] rounded-xl p-2.5 font-semibold italic max-sm:max-w-[50%] ">
+              Thời gian thắm thoát thoi đưa! Em
+              <span className="font-bold ">{' ' + owner + ' '}</span>
+              thân quý mời anh/chị{' '}
               <span className=" relative inline text-primary underline">
                 <span className="absolute inset-0  rounded-full bg-white blur-md"></span>
                 <span className="relative">{name}</span>
@@ -61,11 +65,18 @@ const Invitations = () => {
             </div>
             <div className="background-glass aspect-square h-full rounded-2xl p-2">
               <div className="relative size-full overflow-hidden rounded-[0.5rem]">
-                <img src={isPhoto} className="absolute inset-0 size-full object-cover" alt="" />
+                <img
+                  src={isPhoto}
+                  className="absolute inset-0 size-full object-cover"
+                  alt=""
+                  style={{
+                    filter: `brightness(${filter.brightness}%) contrast(${filter.contrast}%) saturate(${filter.saturation}%)`,
+                  }}
+                />
               </div>
             </div>
             <div className="background-glass flex-1 rounded-xl p-2.5 ">
-              <div className="flex h-full w-full max-w-full flex-col items-center justify-center font-abril-fatface text-3xl max-sm:text-xl">
+              <div className="flex h-full w-full max-w-full flex-col items-center justify-center font-chonburi text-3xl max-sm:text-xl">
                 <p>16:30</p>
                 <p>28/11</p>
               </div>
@@ -76,17 +87,26 @@ const Invitations = () => {
             <div className="flex h-full flex-col gap-4">
               <div className="background-glass relative rounded-2xl p-4 ">
                 <div className="absolute inset-0 bg-white blur-xl"></div>
-                <div className="relative flex h-full flex-col items-start justify-center">
-                  <IPositionShort />
+                <div className="relative flex h-full flex-col items-start justify-center gap-2">
+                  <p className="font-chonburi text-lg leading-6 tracking-tighter ">
+                    Trường Đại Học Công Nghệ Thông Tin, ĐHQG HCM
+                  </p>
+                  <div className="flex w-full items-start pl-0.5 pt-0.5">
+                    <p className="h-[90%] w-[2px] bg-text/80"></p>
+                    <p className=" pl-2 text-sm font-medium italic leading-4">
+                      Đường Hàn Thuyên, Phường Linh Trung, Thủ Đức, Hồ Chí Minh
+                    </p>
+                  </div>
                 </div>
               </div>
 
               <a
-                href="tel:0343214971"
-                className="background-glass flex w-full flex-1 items-center justify-center rounded-2xl px-4 !text-inherit "
+                href={`tel:${tel}`}
+                className="background-glass flex w-full flex-1 items-center justify-center rounded-2xl px-4 py-2 !text-inherit "
               >
-                <span className="text-lg">
-                  Ét ô ét: <span className="ml-1 underline">034 321 4971</span>
+                <span className=" flex items-center gap-1 font-chonburi  text-lg italic">
+                  <IPhone />
+                  {tel}
                 </span>
               </a>
             </div>
@@ -108,23 +128,18 @@ const Invitations = () => {
               </motion.div>
 
               <div
-                className="background-glass w-full cursor-pointer rounded-2xl p-4"
-                onClick={async () => {
-                  // const element = document.body
-                  // if (!element) {
-                  //   return
-                  // }
-                  // const canvas = await html2canvas(element)
-                  // const data = canvas.toDataURL('image/jpg')
-                  // const link = document.createElement('a')
-                  // link.href = data
-                  // link.download = 'tot-nghiep-2024.png'
-                  // document.body.appendChild(link)
-                  // link.click()
-                  // document.body.removeChild(link)
-                }}
+                className="background-glass relative w-full cursor-pointer  overflow-hidden rounded-2xl p-4"
+                onClick={async () => {}}
               >
-                <IDownload />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: [0, 1, 0], scale: [0, 1, 0] }}
+                  transition={{ duration: 1, repeat: Infinity, delay: 3, ease: 'linear' }}
+                  className=" absolute inset-0  bg-primary blur-xl"
+                ></motion.div>
+                <div className="relative">
+                  <IWarning />
+                </div>
               </div>
               <div
                 className="background-glass w-full cursor-pointer rounded-2xl p-4"

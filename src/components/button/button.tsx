@@ -14,7 +14,7 @@ const Button = ({
       id={id}
       onClick={onClick}
       data-load={false}
-      className={`background-glass group flex items-center rounded-full px-4 py-1 font-abril-fatface text-xl text-text transition-all duration-300 active:scale-75 data-[load=true]:pointer-events-none ${className}`}
+      className={`background-glass group flex items-center rounded-full px-4 py-1 font-chonburi text-xl text-text transition-all duration-300 active:scale-75 data-[load=true]:pointer-events-none ${className}`}
     >
       {children}
     </button>

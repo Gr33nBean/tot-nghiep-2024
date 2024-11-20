@@ -7,7 +7,9 @@ const Layout = () => {
         <Outlet />
       </div>
       <div id="landscape-warning" className=" hidden size-full items-center justify-center">
-        <div className="background-glass rounded-3xl p-4 text-[2rem]">Dạ xoay cái điện thoại đứng lên dùm cái đi!</div>
+        <div className="background-glass rounded-3xl p-4 text-[2rem] font-semibold">
+          Dạ xoay cái điện thoại đứng lên dùm cái đi!
+        </div>
       </div>
     </>
   )

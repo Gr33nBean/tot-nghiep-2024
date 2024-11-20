@@ -24,6 +24,28 @@ export const Decors: Record<TTheme, string[]> = {
   uyen: ['huy1.png', 'huy2.png'],
 }
 
+export const Names: Record<TTheme, string> = {
+  huy: 'Huy',
+  vi: 'Vĩ',
+  mai: 'Mai',
+  quyen: 'Quyên',
+  hen: 'Hên',
+  hieu: 'Hiếu',
+  thinh: 'Thịnh',
+  uyen: 'Uyên',
+}
+
+export const Tels: Record<TTheme, string> = {
+  huy: '0343214971',
+  vi: '0123456789',
+  mai: '0123456789',
+  quyen: '0123456789',
+  hen: '0123456789',
+  hieu: '0123456789',
+  thinh: '0123456789',
+  uyen: '0123456789',
+}
+
 export const getTheme = () => {
   return localStorage.getItem(themeKey) as string
 }
