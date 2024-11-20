@@ -3,9 +3,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'dancing-script': ['Dancing Script', 'cursive'],
-        'abril-fatface': ['Abril Fatface', 'cursive'],
-        playball: ['Playball', 'cursive'],
+        'cormorant-upright': ['Cormorant Upright', 'serif'],
+        chonburi: ['Chonburi', 'serif'],
       },
       colors: {
         primary: ({ opacityValue }) => {

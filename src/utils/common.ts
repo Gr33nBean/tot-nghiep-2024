@@ -22,3 +22,23 @@ export async function getPermissionCamera() {
     })
   return res
 }
+
+export function generateRandomArray(start: number, end: number): number[] {
+  const result: number[] = []
+  let current = start
+  const step = start < end ? 1 : -1
+  result.push(current)
+  while ((step > 0 && current < end) || (step < 0 && current > end)) {
+    const randomStep = Math.random() * 5 + 1
+    current = Math.min(end, current + step * randomStep)
+    current = Math.max(end, current)
+    result.push(Math.round(current * 100) / 100)
+  }
+
+  return result
+}
+
+export function randomNumber(numbers: number[]): number {
+  const randomIndex = Math.floor(Math.random() * numbers.length)
+  return numbers[randomIndex]
+}

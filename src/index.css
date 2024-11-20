@@ -58,7 +58,7 @@
 :root {
   /* layout */
   --limit-width: 956px;
-  --ios-pb: 20px;
+  --ios-pb: 8px;
   --navbar-height: calc(var(--ios-pb) + var(--header-height));
   --header-height: 68px;
   /* common color */
@@ -67,6 +67,9 @@
   --z-index-modal: 100;
   --z-index-toast: 9999;
   --z-index-navbar: 90;
+  @media (min-width: 640px) {
+    --ios-pb: 20px;
+  }
 }
 
 body {
@@ -80,7 +83,7 @@ body {
     rgba(var(--primary), 1) 120%
   );
   overflow: hidden;
-  font-family: 'Playball', cursive;
+  font-family: 'Cormorant Upright', serif;
   color: rgba(var(--text), 1);
 }
 
@@ -156,6 +159,9 @@ body {
 
 @media screen and (hover: none) and (orientation: landscape) {
   #layout {
+    display: none;
+  }
+  #invitations {
     display: none;
   }
   #landscape-warning {

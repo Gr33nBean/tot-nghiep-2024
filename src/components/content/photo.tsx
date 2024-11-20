@@ -1,4 +1,3 @@
-import { IUserHeart } from '@/constants/icons'
 import { useData } from '@/provider/data.provider'
 import { getPermissionCamera } from '@/utils/common'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -24,7 +23,7 @@ const Photo = ({ isOpen, isReview }: { isReview?: boolean; isOpen: boolean }) =>
       )}
 
       <div data-review={isReview ?? false} className="absolute inset-0 z-20 data-[review=false]:hidden">
-        <p className="absolute left-0 right-0 top-0 bg-gradient-to-r from-white/0 via-white/60  to-white/0  p-4 text-center font-playball text-xl text-text">
+        <p className="absolute left-0 right-0 top-0 bg-gradient-to-r from-white/0 via-white/60 to-white/0 p-4  text-center  text-xl font-medium text-text">
           Bạn muốn thay đổi gì hông?
         </p>
 
@@ -35,13 +34,10 @@ const Photo = ({ isOpen, isReview }: { isReview?: boolean; isOpen: boolean }) =>
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoComplete="off"
-            placeholder="What should I call you?"
-            className="w-full bg-transparent py-4 text-center font-playball text-[1.3rem] text-text outline-none placeholder:text-text/70"
+            placeholder="Bạn tên gì á?"
+            className="w-full bg-transparent py-4 text-center font-chonburi text-[1.5rem] tracking-[-0.03em] text-text outline-none placeholder:text-text/70"
           />
         </div>
-      </div>
-      <div className="hidden w-[60%] translate-x-3.5 drop-shadow-2xl [--heart-color:theme(colors.error.base)]">
-        <IUserHeart />
       </div>
     </div>
   )
@@ -53,17 +49,21 @@ function TakePhoto() {
   const { filter, setIsPhoto, isPhoto } = useData()
   const camera = useRef(null)
   useEffect(() => {
-    const el = document.getElementById('face-center')
-    if (el) {
-      const parent = el.parentElement
-      if (parent) {
-        if (parent.offsetHeight > parent.offsetWidth) {
-          el.classList.add('w-full')
-        } else {
-          el.classList.add('h-full')
+    const time = setTimeout(() => {
+      const el = document.getElementById('face-center')
+      if (el) {
+        const parent = el.parentElement
+        if (parent) {
+          if (parent.offsetHeight > parent.offsetWidth) {
+            el.classList.add('w-full')
+          } else {
+            el.classList.add('h-full')
+          }
         }
       }
-    }
+    }, 100)
+
+    return () => clearTimeout(time)
   }, [])
   return (
     <>
@@ -92,9 +92,7 @@ function TakePhoto() {
         onClick={() => {
           setIsPhoto((camera.current as any)?.takePhoto())
         }}
-      >
-        Take photo
-      </button>
+      ></button>
 
       <button
         id="retake-photo"
@@ -102,9 +100,7 @@ function TakePhoto() {
         onClick={() => {
           setIsPhoto(undefined)
         }}
-      >
-        Take photo
-      </button>
+      ></button>
     </>
   )
 }
@@ -155,13 +151,13 @@ function Prompt({
           className="absolute inset-0 z-50 flex items-center justify-center rounded-3xl p-8 backdrop-blur"
         >
           <div className="rounded-2xl bg-white p-4">
-            <p className="w-full text-center text-lg">Can I get a photo of you!😘</p>
-            <div className="mt-2.5 flex w-full items-center justify-center gap-2.5 font-abril-fatface text-sm">
+            <p className="w-full text-center font-chonburi text-lg tracking-[-0.03em]">Xin tấm hình nhen!😘</p>
+            <div className="mt-2.5 flex w-full items-center justify-center gap-2.5 font-chonburi text-sm">
               <button onClick={handleClick} className="flex-1 rounded-xl border border-text px-3 py-1 text-text">
-                Accept
+                Đồng ý
               </button>
               <button onClick={handleClick} className="flex-1 rounded-xl bg-secondary px-3 py-1 text-white">
-                Accept
+                Đồng ý
               </button>
             </div>
           </div>

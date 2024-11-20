@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { getPhoto, getTheme, Images, TTheme } from '@/utils/local-storage'
 import swipeUp from '../../../public/swipe-up.json'
 import Lottie from 'lottie-react'
+import UseHeadPhone from './use-head-phone'
 
 const DecorLayout = () => {
   const imgSrc = Images[(getTheme() ?? 'huy') as TTheme]
@@ -82,7 +83,7 @@ const DecorLayout = () => {
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 1, ease: 'easeInOut' }}
+          transition={{ duration: 0.8, ease: 'anticipate' }}
           className="relastive size-full origin-bottom"
         >
           <Outlet />
@@ -116,8 +117,10 @@ const DecorLayout = () => {
         style={{ scrollBehavior: 'smooth' }}
         className="absolute inset-0 size-full overflow-auto"
       >
-        <div ref={child} className="h-[2000px] w-full"></div>
+        <div ref={child} className="h-[130%] w-full"></div>
       </div>
+
+      {!photo && <UseHeadPhone />}
     </div>
   )
 }
