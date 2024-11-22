@@ -1,11 +1,12 @@
 import Lottie from 'lottie-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import confetti from '../../../public/confetti.json'
 import { useData } from '@/provider/data.provider'
 import { wait } from '@/utils/common'
+import { ChangeMusic, ResultSound } from '../layout/music'
 
-const data = ['mot', 'hai', 'ba', 'bon', 'nam']
+const data = ['hai muoi hai', 'phao hoa', 'di giua troi ruc ro', 'nhu ngay hom qua', 'light up']
 
 const Game = () => {
   const { gameStep, setGameStep, handleStepChange } = useData()
@@ -45,14 +46,16 @@ const Game = () => {
   }, [gameStep, data])
 
   async function Check(newAnswer: (number | string | undefined)[]) {
-    if (newAnswer.length != letters.length || newAnswer.some((item) => item == undefined)) {
+    if (newAnswer.some((item) => item == undefined)) {
       setState(0)
     } else {
       const ans = newAnswer
         .map((item) => (typeof item == 'number' ? letters[item] : item))
         .join('')
         .replaceAll('-', ' ')
-      if (ans == data[gameStep]) {
+      const result = ans == data[gameStep]
+      ResultSound(result)
+      if (result) {
         setState(2)
         await wait(1000)
         setGameStep(gameStep + 1)
@@ -128,6 +131,8 @@ const Game = () => {
           )
         })}
       </div>
+
+      <Guide />
     </div>
   )
 }
@@ -154,10 +159,47 @@ function Item({
       data-space={children == '-'}
       data-empty={children == undefined}
       data-active={true}
-      className={`flex aspect-square w-[10%] min-w-[42px] cursor-pointer items-center justify-center rounded-lg border-2 border-text bg-white font-chonburi data-[active=false]:pointer-events-none data-[active=false]:cursor-default data-[space=true]:border-none data-[empty=true]:bg-transparent data-[space=true]:!bg-transparent data-[active=false]:opacity-50 ${className}`}
+      className={`flex aspect-square w-[10%] min-w-[42px] cursor-pointer items-center justify-center rounded-lg border-2 border-text bg-white font-chonburi data-[active=false]:pointer-events-none data-[active=false]:cursor-default data-[space=true]:border-none data-[empty=true]:bg-transparent data-[space=true]:!bg-transparent data-[active=false]:opacity-30 ${className}`}
       onClick={onClick}
     >
       <span className="block text-[150%] leading-[0px] max-sm:text-[130%]">{children}</span>
+    </div>
+  )
+}
+
+function Guide() {
+  const ref = useRef<HTMLDivElement>(null)
+  const hanleClick = () => {
+    if (ref.current) {
+      ChangeMusic(0)
+      ref.current.remove()
+    }
+  }
+  return (
+    <div
+      ref={ref}
+      className="absolute inset-0 flex items-center justify-center bg-black/20 p-4 text-text backdrop-blur-xl"
+    >
+      <div className="rounded-2xl bg-white p-4 text-lg font-medium">
+        <p className="w-full text-center font-chonburi text-xl tracking-tight">Trò chơi Vua Tiếng Việt</p>
+        <p>
+          😎 Thách thức bạn vượt qua <span className="font-semibold underline">5 câu hỏi</span> khó nhằn từ ban tổ chức
+          để giành lấy chiếc thiệp mời danh giá.
+        </p>
+        <p>
+          🎵 Mỗi câu hỏi sẽ được phát <span className="font-semibold underline">một đoạn nhạc</span> gợi ý. Hãy lắng
+          nghe thật kĩ gợi ý từ chương trình bạn nhé.
+        </p>
+        <p>⭐ Chúc bạn may mắn. Bắt đầu ngay!</p>
+        <div className="mt-2.5 flex w-full items-center justify-center gap-2.5 font-chonburi text-sm">
+          <button onClick={hanleClick} className="flex-1 rounded-xl border border-text px-3 py-1 text-text">
+            Chơi
+          </button>
+          <button onClick={hanleClick} className="flex-1 rounded-xl bg-secondary px-3 py-1 text-white">
+            Dô
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

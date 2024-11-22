@@ -80,7 +80,7 @@ function TakePhoto() {
         data-photo={!!isPhoto}
         src={isPhoto}
         alt=""
-        className="w-full bg-white object-cover data-[photo=false]:hidden"
+        className="w-full -scale-x-100 bg-white object-cover data-[photo=false]:hidden"
         style={{
           filter: `brightness(${filter.brightness}%) contrast(${filter.contrast}%) saturate(${filter.saturation}%)`,
         }}
