@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { ChangeMusic } from './music'
 
 const UseHeadPhone = () => {
   return (
@@ -6,6 +7,7 @@ const UseHeadPhone = () => {
       className="absolute inset-0 rounded-2xl bg-black/60 opacity-100 backdrop-blur-xl transition-all"
       onClick={(e) => {
         e.currentTarget.classList.add('!opacity-0', 'pointer-events-none')
+        ChangeMusic()
       }}
     >
       <div className="flex size-full flex-col items-center justify-center gap-4 text-white">

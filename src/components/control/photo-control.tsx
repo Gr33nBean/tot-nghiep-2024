@@ -1,4 +1,4 @@
-import { IGalleryWide, ICameraRotate } from '@/constants/icons'
+import { ICameraRotate } from '@/constants/icons'
 import Button1 from '../button/button-1'
 import EditButton from './edit-button'
 import { useData } from '@/provider/data.provider'
@@ -11,42 +11,15 @@ const PhotoControl = () => {
     <div data-again={!!isPhoto} className="group flex w-full items-center justify-between gap-4 px-10">
       <button
         id="retake-photo-control"
-        className="scale-150 transition-all duration-300 active:scale-75"
+        className="scale-150 transition-all duration-300 active:scale-75 group-data-[again=false]:pointer-events-none group-data-[again=false]:opacity-70"
         onClick={() => {
-          const image = document.querySelector('img[data-photo]') as HTMLImageElement
-          if (image) {
-            image.classList.remove('-scale-x-100')
-          }
           if (isPhoto) {
             const reTake = document.getElementById('retake-photo') as HTMLButtonElement
             if (reTake) reTake.click()
-          } else {
-            const input = document.createElement('input')
-            input.type = 'file'
-            input.accept = 'image/*'
-            input.click()
-            input.onchange = (e) => {
-              const target = e.target as HTMLInputElement
-              const file = target.files?.[0]
-              if (!file) {
-                return
-              }
-              const reader = new FileReader()
-              reader.readAsDataURL(file)
-              reader.onload = () => {
-                const base64 = reader.result as string
-                setIsPhoto(base64)
-              }
-            }
           }
         }}
       >
-        <span className="block group-data-[again=true]:hidden">
-          <IGalleryWide />
-        </span>
-        <span className="block group-data-[again=false]:hidden">
-          <ICameraRotate />
-        </span>
+        <ICameraRotate />
       </button>
       <Button1
         play={!!isPhoto}
@@ -69,10 +42,6 @@ const PhotoControl = () => {
         onClick={async (e) => {
           if (!isPhoto) {
             const take = document.getElementById('take-photo') as HTMLButtonElement
-            const image = document.querySelector('img[data-photo]') as HTMLImageElement
-            if (image) {
-              image.classList.add('-scale-x-100')
-            }
             if (take) take.click()
           } else {
             if (name) {

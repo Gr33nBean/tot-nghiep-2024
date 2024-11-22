@@ -1,6 +1,6 @@
 import { I2024Vertical, IGGMap, IPhone, IReload, IWarning } from '@/constants/icons'
 import { useData } from '@/provider/data.provider'
-import { Names, resetLocalStorage, Tels, TTheme } from '@/utils/local-storage'
+import { getTheme, Images, Names, resetLocalStorage, Tels, TTheme } from '@/utils/local-storage'
 import { motion } from 'framer-motion'
 import Lottie from 'lottie-react'
 import { useEffect, useRef, useState } from 'react'
@@ -9,7 +9,9 @@ import swipeUp from '../../../public/swipe-up.json'
 
 const Invitations = () => {
   const { isPhoto, name, filter } = useData()
-  const owner = Names[window.location.pathname.split('/')[1] as TTheme]
+  const theme = getTheme() ?? 'huy'
+  const owner = Names[theme as TTheme]
+  const ownerImage = Images[theme as TTheme]
 
   const tel = Tels[window.location.pathname.split('/')[1] as TTheme]
   const container = useRef<HTMLDivElement>(null)
@@ -43,7 +45,7 @@ const Invitations = () => {
             <div className="flex flex-1 items-center gap-4">
               <div className="background-glass h-full flex-1 rounded-xl p-2">
                 <div className="relative size-full overflow-hidden rounded-[0.5rem]">
-                  <img src={'/huy.jpg'} className="absolute inset-0 size-full object-cover" alt="" />
+                  <img src={ownerImage} className="absolute inset-0 size-full object-cover" alt="" />
                 </div>
               </div>
             </div>
@@ -67,7 +69,7 @@ const Invitations = () => {
               <div className="relative size-full overflow-hidden rounded-[0.5rem]">
                 <img
                   src={isPhoto}
-                  className="absolute inset-0 size-full object-cover"
+                  className="absolute inset-0 size-full -scale-x-100 object-cover"
                   alt=""
                   style={{
                     filter: `brightness(${filter.brightness}%) contrast(${filter.contrast}%) saturate(${filter.saturation}%)`,
@@ -104,9 +106,9 @@ const Invitations = () => {
                 href={`tel:${tel}`}
                 className="background-glass flex w-full flex-1 items-center justify-center rounded-2xl px-4 py-2 !text-inherit "
               >
-                <span className=" flex items-center gap-1 font-chonburi  text-lg italic">
+                <span className=" flex items-center gap-1 font-chonburi text-lg italic">
                   <IPhone />
-                  {tel}
+                  {tel.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}
                 </span>
               </a>
             </div>

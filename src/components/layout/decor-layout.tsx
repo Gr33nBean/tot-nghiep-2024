@@ -7,6 +7,7 @@ import { getPhoto, getTheme, Images, TTheme } from '@/utils/local-storage'
 import swipeUp from '../../../public/swipe-up.json'
 import Lottie from 'lottie-react'
 import UseHeadPhone from './use-head-phone'
+import Music, { ClickSound } from './music'
 
 const DecorLayout = () => {
   const imgSrc = Images[(getTheme() ?? 'huy') as TTheme]
@@ -41,6 +42,12 @@ const DecorLayout = () => {
     if (photo && child.current) {
       child.current.classList.add('max-h-0')
     }
+
+    const addSoundClick = () => {
+      ClickSound()
+    }
+    document.addEventListener('click', addSoundClick)
+    return () => document.removeEventListener('click', addSoundClick)
   }, [])
 
   return (
@@ -77,7 +84,6 @@ const DecorLayout = () => {
           <IGraduation />
         </motion.div>
       </div>
-
       <Baloons scrollYProgress={scrollYProgress} />
       {(isHideAnimate || photo) && (
         <motion.div
@@ -119,8 +125,8 @@ const DecorLayout = () => {
       >
         <div ref={child} className="h-[130%] w-full"></div>
       </div>
-
       {!photo && <UseHeadPhone />}
+      <Music />
     </div>
   )
 }
