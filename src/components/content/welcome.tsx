@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 const Welcome = () => {
   return (
-    <div className="flex size-full flex-col items-center justify-center pt-28 text-center  max-sm:pt-32">
+    <div className="flex size-full flex-col items-center justify-center pt-28 text-center ">
       <div className="w-full px-8">
         <p className="w-full truncate text-center font-chonburi text-[3rem] uppercase max-sm:text-[2rem]">
           Lễ tốt nghiệp
@@ -16,7 +16,7 @@ const Welcome = () => {
       </div>
 
       <div className=" relative flex w-full flex-1 items-center">
-        <div className="relative w-full  py-2 ">
+        <div className="relative w-full py-2">
           <div className="absolute -inset-1 bg-gradient-to-r from-white/20 via-white/80 to-white/20 "></div>
 
           <div data-first={true} className="px-30 group relative w-full max-sm:px-4">
@@ -46,7 +46,7 @@ const Welcome = () => {
         </div>
       </div>
 
-      <div className="relative flex h-[30%] w-full items-center justify-center  rounded-full">
+      <div className="relative flex h-[30%] w-full items-center justify-center rounded-full">
         {new Array(8).fill(0).map((_, index) => (
           <AnimateNote2 key={index} index={index + 1} />
         ))}
@@ -80,11 +80,11 @@ function AnimateNote2({ index }: { index: number }) {
     },
     {
       left: 100,
-      top: 110,
+      top: 90,
     },
     {
       left: 0,
-      top: 110,
+      top: 90,
     },
   ]
 

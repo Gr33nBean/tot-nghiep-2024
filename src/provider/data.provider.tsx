@@ -5,8 +5,8 @@ import { createContext, useContext, useState, ReactNode, useCallback } from 'rea
 interface DataContextType {
   step: number
   handleStepChange: (isNext: boolean) => void
-  filter: { brightness: number; contrast: number; saturation: number }
-  setFilter: (filter: { brightness: number; contrast: number; saturation: number }) => void
+  filter: { brightness: number; contrast: number; saturation: number; flip?: boolean }
+  setFilter: (filter: { brightness: number; contrast: number; saturation: number; flip?: boolean }) => void
   isPhoto?: string
   setIsPhoto: (isPhoto?: string) => void
   gameStep: number

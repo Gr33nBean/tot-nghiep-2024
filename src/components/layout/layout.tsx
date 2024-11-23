@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 const Layout = () => {
   return (
     <>
-      <div id="layout" className="relative flex size-full flex-col">
+      <div id="layout" className="relative flex size-full h-full w-full flex-col">
         <Outlet />
       </div>
       <div id="landscape-warning" className=" hidden size-full items-center justify-center">

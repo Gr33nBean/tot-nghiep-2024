@@ -67,20 +67,25 @@ function TakePhoto() {
   }, [])
   return (
     <>
-      <div data-photo={!!isPhoto} className="size-full data-[photo=true]:hidden">
+      <div data-photo={!!isPhoto} data-loading={false} className="group relative size-full data-[photo=true]:hidden">
         <Camera facingMode="user" ref={camera} errorMessages={{}} />
         <div className="absolute inset-0 z-[10] flex items-center justify-center">
           <div id="face-center" className="aspect-square p-4 opacity-50">
             <div className="size-full animate-pulse rounded-full border border-gray"></div>
           </div>
         </div>
+
+        <div className="absolute inset-0 flex items-center justify-center bg-white/80 group-data-[loading=false]:hidden">
+          <div className="size-10 animate-spin rounded-full border-y border-secondary"></div>
+        </div>
       </div>
 
       <img
         data-photo={!!isPhoto}
         src={isPhoto}
+        data-flip={filter.flip}
         alt=""
-        className="w-full -scale-x-100 bg-white object-cover data-[photo=false]:hidden"
+        className="size-full bg-white object-cover data-[photo=false]:hidden data-[flip=true]:-scale-x-100"
         style={{
           filter: `brightness(${filter.brightness}%) contrast(${filter.contrast}%) saturate(${filter.saturation}%)`,
         }}

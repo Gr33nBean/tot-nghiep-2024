@@ -13,9 +13,8 @@ const Control = () => {
       data-step={step}
       className={` ${
         step < MAX_STEP - 1 ? 'background-glass border-top-animate' : ''
-      }  group relative flex w-full items-center justify-center overflow-hidden rounded-b-3xl py-10`}
+      }  group relative flex h-[calc(60px+3rem)] min-h-fit w-full items-center justify-center overflow-hidden rounded-b-3xl`}
     >
-      <div className="pointer-events-none h-[60px]"></div>
       <ZoomWrapper isEnter={step == 0}>
         <WelcomeControl />
       </ZoomWrapper>
