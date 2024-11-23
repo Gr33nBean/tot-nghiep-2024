@@ -4,9 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import confetti from '../../../public/confetti.json'
 import { useData } from '@/provider/data.provider'
 import { wait } from '@/utils/common'
-import { ChangeMusic, ResultSound } from '../layout/music'
-
-const data = ['hai muoi hai', 'phao hoa', 'di giua troi ruc ro', 'nhu ngay hom qua', 'light up']
+import { ChangeMusic, cheatData, gameData, ResultSound, topicGame } from '../layout/music'
 
 const Game = () => {
   const { gameStep, setGameStep, handleStepChange } = useData()
@@ -21,16 +19,17 @@ const Game = () => {
   }
 
   useEffect(() => {
-    if (gameStep < 0 || gameStep >= data.length) {
+    if (gameStep < 0 || gameStep >= gameData.length) {
       setTimeout(() => {
         handleStepChange(true)
       }, 1000)
       return
     }
-    const text = data[gameStep]
+    const text = gameData[gameStep]
     handleChangeAnswer(text.split('').map((item) => (item == ' ' ? '-' : undefined)))
 
     let res = text
+      .concat(cheatData[gameStep])
       .split('')
       .map((item) => (item == ' ' ? undefined : item))
       .filter((item) => item != undefined) as string[]
@@ -43,7 +42,7 @@ const Game = () => {
     for (let i = 0; i < letterEls.length; i++) {
       ;(letterEls[i] as HTMLDivElement).dataset.active = 'true'
     }
-  }, [gameStep, data])
+  }, [gameStep, gameData])
 
   async function Check(newAnswer: (number | string | undefined)[]) {
     if (newAnswer.some((item) => item == undefined)) {
@@ -53,7 +52,7 @@ const Game = () => {
         .map((item) => (typeof item == 'number' ? letters[item] : item))
         .join('')
         .replaceAll('-', ' ')
-      const result = ans == data[gameStep]
+      const result = ans == gameData[gameStep]
       ResultSound(result)
       if (result) {
         setState(2)
@@ -66,70 +65,96 @@ const Game = () => {
   }
 
   return (
-    <div className="relative flex size-full flex-col items-center  overflow-y-auto py-10">
-      <p className="mb-10 w-full bg-gradient-to-r from-white/0 via-white/100  to-white/0  py-4 text-center text-2xl font-medium text-text">
+    <div className="relative flex size-full max-h-full flex-col items-center overflow-y-auto py-10 max-sm:py-4">
+      <p className="mb-10 w-full bg-gradient-to-r from-white/0 via-white/100 to-white/0  py-4  text-center text-2xl font-medium text-text max-sm:mb-4">
         Ai là Vua Tiếng Việt?
       </p>
-      <div
-        data-state={state}
-        className="group flex w-[80%] flex-1 flex-wrap items-center justify-center gap-2 data-[state=1]:animate-shake max-sm:w-[90%]"
-      >
-        {answer.map((item, index) => {
-          const children = typeof item == 'number' ? letters[item] : item
-          return (
-            <Item
-              key={index}
-              className="group-data-[state=1]:border-error-base group-data-[state=2]:border-success-base group-data-[state=1]:bg-error-base/20 group-data-[state=2]:bg-success-base/30"
-              onClick={(_) => {
-                if (typeof item == 'number') {
-                  const letter = document.querySelector(`[data-letter="${item}"]`) as HTMLDivElement
-                  if (letter) {
-                    letter.dataset.active = 'true'
-                  }
-                }
-                handleChangeAnswer([...answer.slice(0, index), undefined, ...answer.slice(index + 1)])
-              }}
-            >
-              {children}
-            </Item>
-          )
-        })}
-        {state == 2 && <Lottie className="absolute inset-0" animationData={confetti} loop={true} />}
+
+      <div className="w-[80%] flex-1 max-sm:w-[90%]">
+        <div data-topic={!!topicGame[gameStep % topicGame.length]} className="w-full pb-4 data-[topic=false]:hidden">
+          <img className="w-full" src={topicGame[gameStep % topicGame.length]} />
+        </div>
+
+        <div
+          data-state={state}
+          data-step={gameStep}
+          className="group flex w-full flex-col items-center gap-2 data-[state=1]:animate-shake data-[step=1]:flex-row data-[step=1]:gap-0 "
+        >
+          {splitArrayWithIndexAsObject(answer).map((row, i) => {
+            if (row.length == 1 && gameStep != 1) {
+              return null
+            }
+            return (
+              <div
+                key={i}
+                className="flex w-full flex-wrap items-center justify-center gap-2 group-data-[step=1]:w-[10%]"
+              >
+                {row.map(({ char, index }: { char: string | number | undefined; index: number }) => {
+                  const children = typeof char == 'number' ? letters[char] : char
+
+                  return (
+                    <Item
+                      key={index}
+                      className=" group-data-[step=1]:w-full group-data-[state=1]:border-error-base group-data-[state=2]:border-success-base group-data-[state=1]:bg-error-base/20 group-data-[state=2]:bg-success-base/30"
+                      onClick={(_) => {
+                        if (char == '-') {
+                          return
+                        }
+                        if (typeof char == 'number') {
+                          const letter = document.querySelector(`[data-letter="${char}"]`) as HTMLDivElement
+                          if (letter) {
+                            letter.dataset.active = 'true'
+                          }
+                        }
+                        handleChangeAnswer([...answer.slice(0, index), undefined, ...answer.slice(index + 1)])
+                      }}
+                    >
+                      {children}
+                    </Item>
+                  )
+                })}
+              </div>
+            )
+          })}
+          {state == 2 && <Lottie className="absolute inset-0" animationData={confetti} loop={true} />}
+        </div>
       </div>
 
-      <div className="my-10 min-h-[1px] w-full rounded-full bg-white "></div>
+      <div className="my-10 min-h-[1px] w-full rounded-full bg-white max-sm:my-4 "></div>
 
-      <div className="flex w-[80%] flex-1 flex-wrap items-center justify-center gap-2 max-sm:w-[90%]">
-        {letters.map((item, index) => {
-          return (
-            <Item
-              key={index}
-              letter={index}
-              onClick={async (e) => {
-                e.currentTarget.dataset.active = 'false'
-                let cursor: number = -1
-                for (let i = 0; i < answer.length; i++) {
-                  if (answer[i] == undefined) {
-                    cursor = i
-                    break
+      <div className="w-[80%] flex-1 overflow-auto max-sm:w-[90%]">
+        <div className="flex max-h-full w-full flex-wrap items-start justify-center gap-2 overflow-auto ">
+          {letters.map((item, index) => {
+            return (
+              <Item
+                key={index}
+                letter={index}
+                onClick={async (e) => {
+                  e.currentTarget.dataset.active = 'false'
+                  let cursor: number = -1
+                  for (let i = 0; i < answer.length; i++) {
+                    if (answer[i] == undefined) {
+                      cursor = i
+                      break
+                    }
                   }
-                }
-                if (cursor == -1) {
-                  return
-                } else {
-                  let newAnswer: (number | string | undefined)[] = [
-                    ...answer.slice(0, cursor),
-                    index,
-                    ...answer.slice(cursor + 1),
-                  ]
-                  handleChangeAnswer(newAnswer)
-                }
-              }}
-            >
-              {item}
-            </Item>
-          )
-        })}
+                  if (cursor == -1) {
+                    return
+                  } else {
+                    let newAnswer: (number | string | undefined)[] = [
+                      ...answer.slice(0, cursor),
+                      index,
+                      ...answer.slice(cursor + 1),
+                    ]
+                    handleChangeAnswer(newAnswer)
+                  }
+                }}
+              >
+                {item}
+              </Item>
+            )
+          })}
+        </div>
       </div>
 
       <Guide />
@@ -159,7 +184,7 @@ function Item({
       data-space={children == '-'}
       data-empty={children == undefined}
       data-active={true}
-      className={`flex aspect-square w-[10%] min-w-[42px] cursor-pointer items-center justify-center rounded-lg border-2 border-text bg-white font-chonburi data-[active=false]:pointer-events-none data-[active=false]:cursor-default data-[space=true]:border-none data-[empty=true]:bg-transparent data-[space=true]:!bg-transparent data-[active=false]:opacity-30 ${className}`}
+      className={`flex aspect-square w-[10%] max-w-[42px] cursor-pointer items-center justify-center rounded-lg border-2 border-text bg-white font-chonburi data-[active=false]:pointer-events-none data-[active=false]:cursor-default data-[space=true]:border-none data-[empty=true]:bg-transparent data-[space=true]:!bg-transparent data-[active=false]:opacity-30 max-sm:w-[12%] max-sm:min-w-[12%] ${className}`}
       onClick={onClick}
     >
       <span className="block text-[150%] leading-[0px] max-sm:text-[130%]">{children}</span>
@@ -202,4 +227,28 @@ function Guide() {
       </div>
     </div>
   )
+}
+
+function splitArrayWithIndexAsObject(inputArray: (string | number | undefined)[]) {
+  const result = []
+  let currentSubArray: { char: string | number | undefined; index: number }[] = []
+  inputArray.forEach((char, index) => {
+    if (char === '-') {
+      if (currentSubArray.length > 0) {
+        result.push(currentSubArray)
+        currentSubArray = []
+      }
+      result.push([{ char, index }])
+    } else {
+      currentSubArray.push({ char, index })
+    }
+  })
+
+  if (currentSubArray.length > 0) {
+    result.push(currentSubArray)
+  }
+
+  console.log(result)
+
+  return result
 }

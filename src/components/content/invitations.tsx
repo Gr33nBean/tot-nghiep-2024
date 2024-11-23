@@ -118,7 +118,7 @@ const Invitations = () => {
                 initial={{ rotate: '0deg' }}
                 animate={{ rotate: ['0deg', '-3deg', '3deg', '0deg'] }}
                 transition={{ duration: 1, repeat: Infinity, delay: 3, ease: 'linear' }}
-                className="background-glass flex w-full flex-1 origin-top items-center justify-center rounded-2xl p-4"
+                className="background-glass flex w-full flex-1 origin-top cursor-pointer items-center justify-center rounded-2xl p-4"
                 onClick={() => {
                   const a = document.createElement('a')
                   a.href = 'https://maps.app.goo.gl/1HNG17HcejveizAn9'

@@ -18,7 +18,31 @@ const DecorLayout = () => {
   const { scrollYProgress } = useScroll({
     container: ref,
   })
-  const reverseScroll = useTransform(scrollYProgress, (value) => 1 - value)
+  const reverseScroll = useTransform(scrollYProgress, (value) => {
+    const res = 1 - value * 2
+    if (res < 0) {
+      return 0
+    } else {
+      return res
+    }
+  })
+  const scroll1 = useTransform(scrollYProgress, (value) => {
+    const res = value * 2
+
+    if (res >= 1) {
+      return 1
+    } else {
+      return res
+    }
+  })
+  const scroll2 = useTransform(scrollYProgress, (value) => {
+    const res = (value - 0.5) * 2
+    if (res < 0) {
+      return 0
+    } else {
+      return res
+    }
+  })
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (latest > 0.08 && isHideAnimate == undefined) {
       setIsHideAnimate(false)
@@ -33,7 +57,6 @@ const DecorLayout = () => {
     }
     const el = document.getElementById('animation-progress')
     if (el) {
-      el.innerText = (latest * 100).toFixed(0) + '%'
       el.style.opacity = String(latest * 2)
     }
   })
@@ -59,7 +82,7 @@ const DecorLayout = () => {
           maxWidth: '70dvw',
         }}
       >
-        <motion.div className="origin-top-right" style={{ scale: scrollYProgress }}>
+        <motion.div className="origin-top-right" style={{ scale: scroll1 }}>
           <IHat />
         </motion.div>
       </div>
@@ -69,7 +92,7 @@ const DecorLayout = () => {
           width: 'calc(min(30dvw, 30dvh))',
         }}
       >
-        <motion.div className="origin-center" style={{ scale: scrollYProgress }}>
+        <motion.div className="origin-center" style={{ scale: scroll1 }}>
           <I2024 />
         </motion.div>
       </div>
@@ -80,21 +103,20 @@ const DecorLayout = () => {
           maxWidth: '70dvw',
         }}
       >
-        <motion.div className="origin-bottom-left" style={{ scale: scrollYProgress }}>
+        <motion.div className="origin-bottom-left" style={{ scale: scroll1 }}>
           <IGraduation />
         </motion.div>
       </div>
-      <Baloons scrollYProgress={scrollYProgress} />
-      {(isHideAnimate || photo) && (
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.8, ease: 'anticipate' }}
-          className="relastive size-full origin-bottom"
-        >
-          <Outlet />
-        </motion.div>
-      )}
+
+      <motion.div
+        // initial={{ scale: 0 }}
+        // animate={{ scale: 1 }}
+        // transition={{ duration: 0.8, delay: 1, ease: 'anticipate' }}
+        style={{ scale: photo ? 1 : scroll2 }}
+        className="relastive size-full origin-bottom"
+      >
+        <Outlet />
+      </motion.div>
       <div
         hidden={isHideAnimate}
         className="absolute left-1/2 top-1/2 aspect-square w-[60%] -translate-x-1/2 -translate-y-1/2 max-sm:w-full"
@@ -123,10 +145,11 @@ const DecorLayout = () => {
         style={{ scrollBehavior: 'smooth' }}
         className="absolute inset-0 size-full overflow-auto"
       >
-        <div ref={child} className="h-[130%] w-full"></div>
+        <div ref={child} className="h-[180%] w-full"></div>
       </div>
       {!photo && <UseHeadPhone />}
       <Music />
+      <Baloons scrollYProgress={scrollYProgress} />
     </div>
   )
 }

@@ -46,7 +46,7 @@ function Progress({ number, active }: { number: number; active?: boolean }) {
             className="absolute -inset-1 origin-left rounded-full bg-primary"
           ></motion.div>
         )}
-        <p className="relative">{number}</p>
+        <p className="relative text-[80%]">{number}</p>
       </div>
     </div>
   )

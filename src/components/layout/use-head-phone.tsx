@@ -4,10 +4,17 @@ import { ChangeMusic } from './music'
 const UseHeadPhone = () => {
   return (
     <div
+      id="head-phone"
       className="absolute inset-0 rounded-2xl bg-black/60 opacity-100 backdrop-blur-xl transition-all"
       onClick={(e) => {
         e.currentTarget.classList.add('!opacity-0', 'pointer-events-none')
         ChangeMusic()
+        setTimeout(() => {
+          const el = document.getElementById('head-phone')
+          if (el) {
+            el.remove()
+          }
+        }, 500)
       }}
     >
       <div className="flex size-full flex-col items-center justify-center gap-4 text-white">

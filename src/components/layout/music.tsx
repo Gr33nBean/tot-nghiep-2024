@@ -5,6 +5,13 @@ import { useEffect } from 'react'
 const games = ['/1-haimuoihai', '/2-phaohoa', '/3-digiuatroirucro', '/4-nhungayhomqua', '/5-lightup'].map(
   (item) => `/music${item}.mp3`
 )
+export const gameData = ['hai muoi hai', '2 1 3 1 1 3', 'tinh tu', 'bua qua', 'light up']
+
+export const topicGame = ['/haimuoihai', '/phaohoa', '/tinhtu', '/homqua', ''].map((item) =>
+  item ? '/game' + item + '.png' : item
+)
+
+export const cheatData = ['', '', 'dom dom', 'hom', '']
 
 const Music = () => {
   const { step, gameStep } = useData()

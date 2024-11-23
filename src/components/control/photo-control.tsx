@@ -1,25 +1,55 @@
-import { ICameraRotate } from '@/constants/icons'
+import { ICameraRotate, IGalleryWide } from '@/constants/icons'
 import Button1 from '../button/button-1'
 import EditButton from './edit-button'
 import { useData } from '@/provider/data.provider'
 import { getTheme, setPhoto } from '@/utils/local-storage'
 
 const PhotoControl = () => {
-  const { isPhoto, setIsPhoto, handleStepChange, step, name } = useData()
+  const { isPhoto, setIsPhoto, handleStepChange, step, name, setFilter, filter } = useData()
 
   return (
     <div data-again={!!isPhoto} className="group flex w-full items-center justify-between gap-4 px-10">
       <button
         id="retake-photo-control"
-        className="scale-150 transition-all duration-300 active:scale-75 group-data-[again=false]:pointer-events-none group-data-[again=false]:opacity-70"
+        className="scale-150 transition-all duration-300 active:scale-75"
         onClick={() => {
           if (isPhoto) {
             const reTake = document.getElementById('retake-photo') as HTMLButtonElement
             if (reTake) reTake.click()
+          } else {
+            const input = document.createElement('input')
+            input.type = 'file'
+            input.accept = 'image/*'
+            input.click()
+            input.onchange = (e) => {
+              setFilter({ ...filter, flip: false })
+              const target = e.target as HTMLInputElement
+              const file = target.files?.[0]
+              if (!file) {
+                return
+              }
+              const camera = document.querySelector('div[data-photo]') as HTMLDivElement
+              if (!camera) return
+              camera.dataset.loading = 'true'
+              const reader = new FileReader()
+              reader.readAsDataURL(file)
+              reader.onload = () => {
+                const base64 = reader.result as string
+                setIsPhoto(base64)
+                const camera = document.querySelector('div[data-photo]') as HTMLDivElement
+                if (!camera) return
+                camera.dataset.loading = 'false'
+              }
+            }
           }
         }}
       >
-        <ICameraRotate />
+        <span className="block group-data-[again=true]:hidden">
+          <IGalleryWide />
+        </span>
+        <span className="block group-data-[again=false]:hidden">
+          <ICameraRotate />
+        </span>
       </button>
       <Button1
         play={!!isPhoto}
@@ -42,6 +72,7 @@ const PhotoControl = () => {
         onClick={async (e) => {
           if (!isPhoto) {
             const take = document.getElementById('take-photo') as HTMLButtonElement
+            setFilter({ ...filter, flip: true })
             if (take) take.click()
           } else {
             if (name) {
