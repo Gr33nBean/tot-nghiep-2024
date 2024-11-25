@@ -1,11 +1,9 @@
-import { I2024, IGraduation, IHat } from '@/constants/icons'
+import { I2024, IGraduation, IHat, IMapArrowDown } from '@/constants/icons'
 import Baloons from '../decor/baloons'
 import { Outlet } from 'react-router-dom'
 import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { getPhoto, getTheme, Images, TTheme } from '@/utils/local-storage'
-import swipeUp from '../../../public/swipe-up.json'
-import Lottie from 'lottie-react'
 import UseHeadPhone from './use-head-phone'
 import Music, { ClickSound } from './music'
 
@@ -108,18 +106,12 @@ const DecorLayout = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        // initial={{ scale: 0 }}
-        // animate={{ scale: 1 }}
-        // transition={{ duration: 0.8, delay: 1, ease: 'anticipate' }}
-        style={{ scale: photo ? 1 : scroll2 }}
-        className="relastive size-full origin-bottom"
-      >
+      <motion.div style={{ scale: photo ? 1 : scroll2 }} className="relastive size-full origin-bottom">
         <Outlet />
       </motion.div>
       <div
         hidden={isHideAnimate}
-        className="absolute left-1/2 top-1/2 aspect-square w-[60%] -translate-x-1/2 -translate-y-1/2 max-sm:w-full"
+        className="absolute left-1/2 top-1/2 aspect-square w-[60%] -translate-x-1/2 -translate-y-1/2  max-sm:w-full"
       >
         <motion.div
           className="relative size-full origin-center overflow-hidden rounded-full"
@@ -135,10 +127,20 @@ const DecorLayout = () => {
             id="animation-progress"
             className="background-glass absolute inset-0 flex size-full items-center justify-center text-2xl text-text opacity-0 transition-all duration-75"
           ></p>
-
-          {isHideAnimate == undefined && <Lottie className="absolute inset-0" animationData={swipeUp} loop={true} />}
         </motion.div>
       </div>
+      {!isHideAnimate && (
+        <motion.div
+          initial={{ y: '-100%', x: '-50%' }}
+          animate={{ y: ['-100%', '-90%', '-100%'] }}
+          transition={{ repeat: Infinity, duration: 1 }}
+          className="absolute bottom-0 left-1/2 -translate-x-1/2"
+        >
+          <span className="text-primary">
+            <IMapArrowDown />
+          </span>
+        </motion.div>
+      )}
       <div
         ref={ref}
         hidden={isHideAnimate}
