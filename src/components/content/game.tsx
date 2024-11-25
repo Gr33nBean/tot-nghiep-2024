@@ -5,6 +5,7 @@ import confetti from '../../../public/confetti.json'
 import { useData } from '@/provider/data.provider'
 import { wait } from '@/utils/common'
 import { ChangeMusic, cheatData, gameData, ResultSound, topicGame } from '../layout/music'
+import { MAX_STEP } from './content-wrapper'
 
 const Game = () => {
   const { gameStep, setGameStep, handleStepChange } = useData()
@@ -72,25 +73,32 @@ const Game = () => {
 
       <div className=" w-[90%] flex-1">
         <div
-          data-topic={!!topicGame[gameStep >= topicGame.length ? topicGame.length - 1 : gameStep]}
+          hidden={gameStep >= topicGame.length}
+          data-topic={!!topicGame[gameStep % topicGame.length]}
           className="w-full pb-4 data-[topic=false]:hidden"
         >
           <img className="w-full" src={topicGame[gameStep % topicGame.length]} />
+          {gameStep == 3 && (
+            <div className="w-full px-10">
+              <img className="w-full" src={'/game/dothi.jpg'} />
+            </div>
+          )}
         </div>
 
         <div
           data-state={state}
-          data-step={gameStep}
-          className="group flex w-full flex-col items-center gap-2 data-[state=1]:animate-shake data-[step=1]:flex-row data-[step=1]:gap-0 "
+          data-special={gameStep == MAX_STEP - 1}
+          className="group flex w-full flex-col items-center gap-2 data-[state=1]:animate-shake data-[special=true]:flex-row data-[special=true]:gap-0 "
         >
           {splitArrayWithIndexAsObject(answer).map((row, i) => {
-            if (row.length == 1 && gameStep != 1) {
+            const special = gameStep == MAX_STEP - 1
+            if (row.length == 1 && !special) {
               return null
             }
             return (
               <div
                 key={i}
-                className="flex w-full flex-wrap items-center justify-center gap-2 group-data-[step=1]:w-[10%]"
+                className="flex w-full flex-wrap items-center justify-center gap-2 group-data-[special=true]:w-[10%]"
               >
                 {row.map(({ char, index }: { char: string | number | undefined; index: number }) => {
                   const children = typeof char == 'number' ? letters[char] : char
@@ -98,7 +106,7 @@ const Game = () => {
                   return (
                     <Item
                       key={index}
-                      className=" group-data-[step=1]:w-full group-data-[state=1]:border-error-base group-data-[state=2]:border-success-base group-data-[state=1]:bg-error-base/20 group-data-[state=2]:bg-success-base/30"
+                      className=" group-data-[special=true]:w-full group-data-[state=1]:border-error-base group-data-[state=2]:border-success-base group-data-[state=1]:bg-error-base/20 group-data-[state=2]:bg-success-base/30"
                       onClick={(_) => {
                         if (char == '-') {
                           return
@@ -125,7 +133,7 @@ const Game = () => {
 
       <div className=" my-4 min-h-[1px] w-full rounded-full bg-white "></div>
 
-      <div className=" w-[90%] flex-1 overflow-auto">
+      <div hidden={gameStep >= topicGame.length} className=" w-[90%] flex-1 overflow-auto">
         <div className="flex max-h-full w-full flex-wrap items-start justify-center gap-2 overflow-auto ">
           {letters.map((item, index) => {
             return (
