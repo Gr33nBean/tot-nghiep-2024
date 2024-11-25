@@ -15,39 +15,39 @@
   --gray: 202, 205, 208;
 }
 .quyen {
-  --primary: 203, 149, 29;
-  --secondary: 32, 32, 32;
+  --primary: 216, 81, 122;
+  --secondary: 9, 9, 9;
   --text: 32, 32, 32;
   --gray: 202, 205, 208;
 }
 
 .uyen {
-  --primary: 203, 149, 29;
-  --secondary: 32, 32, 32;
+  --primary: 216, 81, 122;
+  --secondary: 9, 9, 9;
   --text: 32, 32, 32;
   --gray: 202, 205, 208;
 }
 .thinh {
-  --primary: 43, 49, 10;
-  --secondary: 37, 19, 15;
-  --text: 32, 32, 32;
+  --primary: 204, 94, 123;
+  --secondary: 136, 60, 99;
+  --text: 134, 140, 34;
   --gray: 202, 205, 208;
 }
 .vi {
-  --primary: 203, 149, 29;
-  --secondary: 32, 32, 32;
+  --primary: 8, 70, 26;
+  --secondary: 6, 38, 34;
   --text: 32, 32, 32;
   --gray: 202, 205, 208;
 }
 .hieu {
-  --primary: 203, 149, 29;
-  --secondary: 32, 32, 32;
+  --primary: 255, 14, 14;
+  --secondary: 42, 49, 50;
   --text: 32, 32, 32;
   --gray: 202, 205, 208;
 }
 .hen {
-  --primary: 203, 149, 29;
-  --secondary: 32, 32, 32;
+  --primary: 51, 115, 176;
+  --secondary: 28, 32, 41;
   --text: 32, 32, 32;
   --gray: 202, 205, 208;
 }
