@@ -105,7 +105,7 @@ const Invitations = () => {
                 href={`tel:${tel}`}
                 className="background-glass flex w-full flex-1 items-center justify-center rounded-2xl px-4 py-2 !text-inherit "
               >
-                <span className=" flex items-center gap-1 font-chonburi text-lg italic">
+                <span className=" flex items-center gap-1 font-chonburi text-lg italic underline">
                   <IPhone />
                   {tel.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}
                 </span>
@@ -129,7 +129,7 @@ const Invitations = () => {
               </motion.div>
 
               <div
-                className="background-glass relative w-full cursor-pointer  overflow-hidden rounded-2xl p-4"
+                className="background-glass relative hidden w-full cursor-pointer  overflow-hidden rounded-2xl p-4"
                 onClick={async () => {}}
               >
                 <motion.div
