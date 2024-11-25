@@ -56,7 +56,8 @@ const Invitations = () => {
                 <span className="absolute inset-0  rounded-full bg-white blur-md"></span>
                 <span className="relative">{name}</span>
               </span>{' '}
-              đến chung vui, chụp hình trong buổi lễ tốt nghiệp của em. Sự có mặt của anh/chị là niềm vinh hạnh của em.
+              đến chung vui, chụp hình trong buổi lễ tốt nghiệp của em. Sự có mặt của anh/chị/bạn là niềm vinh hạnh của
+              em.
             </div>
           </div>
 
@@ -68,7 +69,8 @@ const Invitations = () => {
               <div className="relative size-full overflow-hidden rounded-[0.5rem]">
                 <img
                   src={isPhoto}
-                  className="absolute inset-0 size-full -scale-x-100 object-cover"
+                  data-flip={filter.flip}
+                  className="absolute inset-0 size-full  object-cover data-[flip=true]:-scale-x-100"
                   alt=""
                   style={{
                     filter: `brightness(${filter.brightness}%) contrast(${filter.contrast}%) saturate(${filter.saturation}%)`,
@@ -78,7 +80,7 @@ const Invitations = () => {
             </div>
             <div className="background-glass flex-1 rounded-xl p-2.5 ">
               <div className="flex h-full w-full max-w-full flex-col items-center justify-center font-chonburi  text-xl">
-                <p>16:30</p>
+                <p className="text-center">16-17:30</p>
                 <p>28/11</p>
               </div>
             </div>
@@ -145,6 +147,8 @@ const Invitations = () => {
               <div
                 className="background-glass w-full cursor-pointer rounded-2xl p-4"
                 onClick={() => {
+                  const result = confirm('Làm lại chứ?')
+                  if (!result) return
                   resetLocalStorage()
                   window.location.reload()
                 }}

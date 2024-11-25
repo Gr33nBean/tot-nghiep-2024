@@ -4,13 +4,13 @@ export const Themes: TTheme[] = ['huy', 'vi', 'mai', 'quyen', 'hen', 'hieu', 'th
 
 export const Images: Record<TTheme, string> = {
   huy: '/huy.jpg',
-  vi: '/huy.jpg',
-  mai: '/huy.jpg',
-  quyen: '/huy.jpg',
-  hen: '/huy.jpg',
-  hieu: '/huy.jpg',
-  thinh: '/huy.jpg',
-  uyen: '/huy.jpg',
+  vi: '/vi.jpg',
+  mai: '/mai.jpg',
+  quyen: '/quyen.jpg',
+  hen: '/hen.jpg',
+  hieu: '/hieu.jpg',
+  thinh: '/thinh.jpg',
+  uyen: '/thinh.jpg',
 }
 
 export const Decors: Record<TTheme, string[]> = {

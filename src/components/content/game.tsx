@@ -6,6 +6,7 @@ import { useData } from '@/provider/data.provider'
 import { wait } from '@/utils/common'
 import { ChangeMusic, cheatData, gameData, ResultSound, topicGame } from '../layout/music'
 import { MAX_STEP } from './content-wrapper'
+import { getTheme } from '@/utils/local-storage'
 
 const Game = () => {
   const { gameStep, setGameStep, handleStepChange } = useData()
@@ -79,8 +80,8 @@ const Game = () => {
         >
           <img className="w-full" src={topicGame[gameStep % topicGame.length]} />
           {gameStep == 3 && (
-            <div className="w-full px-10">
-              <img className="w-full" src={'/game/dothi.jpg'} />
+            <div className="w-full px-20">
+              <img className="w-full" src={'/game/dothi_' + getTheme() + '.jpg'} />
             </div>
           )}
         </div>
