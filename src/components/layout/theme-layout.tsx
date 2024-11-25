@@ -37,7 +37,7 @@ const ThemeLayout = () => {
   }
   return (
     <div className="relative flex size-full flex-col items-center justify-center gap-2  p-4 text-black">
-      <div className="absolute left-1/2 top-1/2 aspect-square w-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full  max-sm:w-[80%]">
+      <div className="absolute left-1/2 top-1/2 aspect-square w-[80%] -translate-x-1/2 -translate-y-1/2  rounded-full">
         <div className="absolute inset-0 rounded-full border-2 border-black "></div>
         <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           Chọn người bạn quen :3
@@ -72,9 +72,6 @@ const ThemeLayout = () => {
                     className="pointer-events-none size-full rounded-[0.25rem] object-cover"
                     src={Images[theme]}
                   />
-                  <p className="pointer-events-none absolute inset-0 flex items-center justify-center text-white">
-                    {theme}
-                  </p>
                 </motion.div>
               </motion.div>
             )

@@ -39,7 +39,7 @@ export async function ChangeMusic(gameStep?: number) {
   if (gameStep != undefined && gameStep < games.length) {
     bgSound.pause()
     gameSound.src = games[gameStep]
-    await wait(2000)
+    await wait(1400)
     gameSound.play()
   } else {
     gameSound.pause()
@@ -48,7 +48,7 @@ export async function ChangeMusic(gameStep?: number) {
       cheeringClapping.play()
       await wait(8000)
     }
-    await wait(2000)
+    await wait(1400)
     bgSound.play()
   }
 }
