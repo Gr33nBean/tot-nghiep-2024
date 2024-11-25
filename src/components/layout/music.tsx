@@ -2,16 +2,16 @@ import { useData } from '@/provider/data.provider'
 import { wait } from '@/utils/common'
 import { useEffect } from 'react'
 
-const games = ['/1-haimuoihai', '/2-phaohoa', '/3-digiuatroirucro', '/4-nhungayhomqua', '/5-lightup'].map(
+const games = ['/1-haimuoihai', '/3-digiuatroirucro', '/4-nhungayhomqua', '/5-lightup', '/2-phaohoa'].map(
   (item) => `/music${item}.mp3`
 )
-export const gameData = ['hai muoi hai', '2 1 3 1 1 3', 'tinh tu', 'bua qua', 'light up']
+export const gameData = ['hai muoi hai', 'tinh tu', 'bua qua', 'cosin', '2 1 3 1 1 3']
 
-export const topicGame = ['/haimuoihai', '/phaohoa', '/tinhtu', '/homqua', ''].map((item) =>
+export const topicGame = ['/haimuoihai', '/tinhtu', '/homqua', '/dothi', '/phaohoa'].map((item) =>
   item ? '/game' + item + '.png' : item
 )
 
-export const cheatData = ['', '', 'dom dom', 'hom', '']
+export const cheatData = ['', 'dom dom', 'hom', 'tan', '']
 
 const Music = () => {
   const { step, gameStep } = useData()
