@@ -9,8 +9,8 @@
   --gray: 202, 205, 208;
 }
 .mai {
-  --primary: 203, 149, 29;
-  --secondary: 32, 32, 32;
+  --primary: 164, 157, 210;
+  --secondary: 66, 30, 82;
   --text: 32, 32, 32;
   --gray: 202, 205, 208;
 }
@@ -57,7 +57,7 @@
 
 :root {
   /* layout */
-  --limit-width: 956px;
+  --limit-width: calc(475px - 2rem);
   --ios-pb: 8px;
   --navbar-height: calc(var(--ios-pb) + var(--header-height));
   --header-height: 68px;
@@ -94,9 +94,7 @@ body {
   position: relative;
   z-index: 0;
   padding: var(--ios-pb);
-  @media (min-width: 640px) {
-    max-width: var(--limit-width);
-  }
+  max-width: var(--limit-width);
 }
 
 .bg-gradient {

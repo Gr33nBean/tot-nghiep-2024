@@ -65,13 +65,16 @@ const Game = () => {
   }
 
   return (
-    <div className="relative flex size-full max-h-full flex-col items-center overflow-y-auto py-10 max-sm:py-4">
-      <p className="mb-10 w-full bg-gradient-to-r from-white/0 via-white/100 to-white/0  py-4  text-center text-2xl font-medium text-text max-sm:mb-4">
+    <div className="relative flex size-full max-h-full flex-col items-center overflow-y-auto py-4">
+      <p className="mb-4 w-full bg-gradient-to-r from-white/0 via-white/100  to-white/0  py-4 text-center text-2xl font-medium text-text">
         Ai là Vua Tiếng Việt?
       </p>
 
-      <div className="w-[80%] flex-1 max-sm:w-[90%]">
-        <div data-topic={!!topicGame[gameStep % topicGame.length]} className="w-full pb-4 data-[topic=false]:hidden">
+      <div className=" w-[90%] flex-1">
+        <div
+          data-topic={!!topicGame[gameStep >= topicGame.length ? topicGame.length - 1 : gameStep]}
+          className="w-full pb-4 data-[topic=false]:hidden"
+        >
           <img className="w-full" src={topicGame[gameStep % topicGame.length]} />
         </div>
 
@@ -120,9 +123,9 @@ const Game = () => {
         </div>
       </div>
 
-      <div className="my-10 min-h-[1px] w-full rounded-full bg-white max-sm:my-4 "></div>
+      <div className=" my-4 min-h-[1px] w-full rounded-full bg-white "></div>
 
-      <div className="w-[80%] flex-1 overflow-auto max-sm:w-[90%]">
+      <div className=" w-[90%] flex-1 overflow-auto">
         <div className="flex max-h-full w-full flex-wrap items-start justify-center gap-2 overflow-auto ">
           {letters.map((item, index) => {
             return (
@@ -184,10 +187,10 @@ function Item({
       data-space={children == '-'}
       data-empty={children == undefined}
       data-active={true}
-      className={`flex aspect-square w-[10%] max-w-[42px] cursor-pointer items-center justify-center rounded-lg border-2 border-text bg-white font-chonburi data-[active=false]:pointer-events-none data-[active=false]:cursor-default data-[space=true]:border-none data-[empty=true]:bg-transparent data-[space=true]:!bg-transparent data-[active=false]:opacity-30 max-sm:w-[12%] max-sm:min-w-[12%] ${className}`}
+      className={`flex aspect-square w-[12%]  max-w-[42px] cursor-pointer items-center justify-center rounded-lg border-2 border-text bg-white font-chonburi data-[active=false]:pointer-events-none data-[active=false]:cursor-default data-[space=true]:border-none data-[empty=true]:bg-transparent data-[space=true]:!bg-transparent data-[active=false]:opacity-30 ${className}`}
       onClick={onClick}
     >
-      <span className="block text-[150%] leading-[0px] max-sm:text-[130%]">{children}</span>
+      <span className="block text-[130%] leading-[0px]">{children}</span>
     </div>
   )
 }
@@ -215,6 +218,7 @@ function Guide() {
           🎵 Mỗi câu hỏi sẽ được phát <span className="font-semibold underline">một đoạn nhạc</span> gợi ý. Hãy lắng
           nghe thật kĩ gợi ý từ chương trình bạn nhé.
         </p>
+        <p>📌 Lưu ý mỗi từ gồm các kí tự trên cùng 1 hàng.</p>
         <p>⭐ Chúc bạn may mắn. Bắt đầu ngay!</p>
         <div className="mt-2.5 flex w-full items-center justify-center gap-2.5 font-chonburi text-sm">
           <button onClick={hanleClick} className="flex-1 rounded-xl border border-text px-3 py-1 text-text">
