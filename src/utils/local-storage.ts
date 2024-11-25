@@ -16,7 +16,7 @@ export const Images: Record<TTheme, string> = {
 export const Decors: Record<TTheme, string[]> = {
   huy: ['huy1.png', 'huy2.png'],
   vi: ['huy1.png', 'huy2.png'],
-  mai: ['huy1.png', 'huy2.png'],
+  mai: ['mai1.png', 'huy2.png'],
   quyen: ['huy1.png', 'huy2.png'],
   hen: ['huy1.png', 'huy2.png'],
   hieu: ['huy1.png', 'huy2.png'],
@@ -25,24 +25,24 @@ export const Decors: Record<TTheme, string[]> = {
 }
 
 export const Names: Record<TTheme, string> = {
-  huy: 'Huy',
-  vi: 'Vĩ',
-  mai: 'Mai',
-  quyen: 'Quyên',
-  hen: 'Hên',
-  hieu: 'Hiếu',
-  thinh: 'Thịnh',
-  uyen: 'Uyên',
+  huy: 'Trường Huy',
+  vi: 'Thế Vĩ',
+  mai: 'Hoàng Mai',
+  quyen: 'Phương Quyên',
+  hen: 'Văn Hên',
+  hieu: 'Minh Hiếu',
+  thinh: 'Tiến Thịnh',
+  uyen: 'Phương Uyên',
 }
 
 export const Tels: Record<TTheme, string> = {
-  huy: '0343214971',
-  vi: '0123456789',
-  mai: '0123456789',
-  quyen: '0123456789',
-  hen: '0123456789',
-  hieu: '0123456789',
-  thinh: '0123456789',
+  huy: '0343214971', //
+  vi: '0848867679', //
+  mai: '0963636521', //
+  quyen: '0942114491', //
+  hen: '0359723726', //
+  hieu: '0945654551', //
+  thinh: '0359086355', //
   uyen: '0123456789',
 }
 

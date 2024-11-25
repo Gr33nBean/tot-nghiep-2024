@@ -6,10 +6,8 @@ const Welcome = () => {
   return (
     <div className="flex size-full flex-col items-center justify-center pt-28 text-center ">
       <div className="w-full px-8">
-        <p className="w-full truncate text-center font-chonburi text-[3rem] uppercase max-sm:text-[2rem]">
-          Lễ tốt nghiệp
-        </p>
-        <p className="mt-1 w-full -translate-y-2 truncate text-center text-[1.6rem] font-medium italic max-sm:text-[1.3rem] ">
+        <p className="w-full truncate text-center font-chonburi text-[2rem] uppercase">Lễ tốt nghiệp</p>
+        <p className="mt-1 w-full -translate-y-2 truncate text-center  text-[1.3rem] font-medium italic ">
           Mùa Đông
           <span className="inline-block origin-left -translate-y-[2px] scale-125 pl-1">2024</span>
         </p>
@@ -19,7 +17,7 @@ const Welcome = () => {
         <div className="relative w-full py-2">
           <div className="absolute -inset-1 bg-gradient-to-r from-white/20 via-white/80 to-white/20 "></div>
 
-          <div data-first={true} className="px-30 group relative w-full max-sm:px-4">
+          <div data-first={true} className="px-30 group relative w-full px-4">
             <input
               id="name"
               type="text"

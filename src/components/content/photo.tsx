@@ -27,7 +27,7 @@ const Photo = ({ isOpen, isReview }: { isReview?: boolean; isOpen: boolean }) =>
           Bạn muốn thay đổi gì hông?
         </p>
 
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-white/0 via-white/60 to-white/0 px-40 max-sm:px-4">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-white/0 via-white/60 to-white/0 px-4">
           <input
             id="name"
             type="text"

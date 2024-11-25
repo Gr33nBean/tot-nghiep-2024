@@ -49,10 +49,9 @@ const Invitations = () => {
                 </div>
               </div>
             </div>
-            <div className="background-glass invitation-text w-fit max-w-[40%] rounded-xl p-2.5 font-semibold italic max-sm:max-w-[50%] ">
-              Thời gian thắm thoát thoi đưa! Em
-              <span className="font-bold ">{' ' + owner + ' '}</span>
-              thân quý mời anh/chị{' '}
+            <div className="background-glass invitation-text w-fit max-w-[50%] rounded-xl p-2.5 font-semibold italic ">
+              <span className="font-bold text-primary underline">{' ' + owner + ' '}</span>
+              thân quý mời anh/chị/bạn{' '}
               <span className=" relative inline text-primary underline">
                 <span className="absolute inset-0  rounded-full bg-white blur-md"></span>
                 <span className="relative">{name}</span>
@@ -78,7 +77,7 @@ const Invitations = () => {
               </div>
             </div>
             <div className="background-glass flex-1 rounded-xl p-2.5 ">
-              <div className="flex h-full w-full max-w-full flex-col items-center justify-center font-chonburi text-3xl max-sm:text-xl">
+              <div className="flex h-full w-full max-w-full flex-col items-center justify-center font-chonburi  text-xl">
                 <p>16:30</p>
                 <p>28/11</p>
               </div>
