@@ -10,7 +10,7 @@ export const Images: Record<TTheme, string> = {
   hen: '/hen.jpg',
   hieu: '/hieu.jpg',
   thinh: '/thinh.jpg',
-  uyen: '/thinh.jpg',
+  uyen: '/uyen.jpg',
 }
 
 export const Decors: Record<TTheme, string[]> = {
